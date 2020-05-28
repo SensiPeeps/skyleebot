@@ -38,7 +38,7 @@ def afk(update, context):
 def no_longer_afk(update, context):
     user = update.effective_user  # type: Optional[User]
 
-    if user.id == 777000:  # ignore channels
+    if not user:  # ignore channels
         return
 
     res = sql.rm_afk(user.id)
