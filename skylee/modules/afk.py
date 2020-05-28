@@ -20,6 +20,9 @@ AFK_REPLY_GROUP = 8
 
 @run_async
 def afk(update, context):
+    user = update.effective_user
+    if user.id == 777000:
+        return
     args = update.effective_message.text.split(None, 1)
     if len(args) >= 2:
         reason = args[1]
@@ -35,7 +38,7 @@ def afk(update, context):
 def no_longer_afk(update, context):
     user = update.effective_user  # type: Optional[User]
 
-    if not user:  # ignore channels
+    if user.id == 777000:  # ignore channels
         return
 
     res = sql.rm_afk(user.id)
