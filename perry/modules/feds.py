@@ -2249,6 +2249,29 @@ def unsubs_feds(update, context):
 
 
 @typing_action
+def rename_fed(update, context):
+    user = update.effective_user
+    msg = update.effective_message
+    args = msg.text.split(None, 2)
+
+    if len(args) < 3:
+        return msg.reply_text("usage: /renamefed <fed_id> <newname>")
+
+    fed_id, newname = args[1], args[2]
+    verify_fed = sql.get_fed_info(fed_id)
+
+    if not verify_fed:
+        return msg.reply_text("This fed not exist in my database!")
+
+    if is_user_fed_owner(fed_id, user.id):
+        sql.rename_fed(fed_id, user.id, newname)
+        msg.reply_text(f"Successfully renamed your fed name to {newname}!")
+    else:
+        msg.reply_text("Only federation owner can do this!")
+
+
+@run_async
+@typing_action
 def get_myfedsubs(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -2417,8 +2440,9 @@ You can even designate admin federations, so your trusted admin can ban all the 
 
 *Commands Available*:
 
- × /newfed <fedname>: Create a new Federation with the name given. Users are only allowed to have one Federation. This method can also be used to rename the Federation. (max. 64 characters)
+ × /newfed <fedname>: Create a new Federation with the name given.
  × /delfed: Delete your Federation, and any information related to it. Will not cancel blocked users.
+ × /renamefed <FedID> <newname> : Rename your existing federations.
  × /fedinfo <FedID>: Information about the specified Federation.
  × /joinfed <FedID>: Join the current chat to the Federation. Only chat owners can do this. Every chat can only be in one Federation.
  × /leavefed <FedID>: Leave the Federation given. Only chat owners can do this.
@@ -2472,6 +2496,8 @@ SUBS_FED = CommandHandler("subfed", subs_feds, pass_args=True)
 UNSUBS_FED = CommandHandler("unsubfed", unsubs_feds, pass_args=True)
 MY_SUB_FED = CommandHandler("fedsubs", get_myfedsubs, pass_args=True)
 MY_FEDS_LIST = CommandHandler("myfeds", get_myfeds_list)
+RENAME_FED = CommandHandler("renamefed", rename_fed)
+
 
 DELETEBTN_FED_HANDLER = CallbackQueryHandler(
     del_fed_button, pattern=r"rmfed_", run_async=True
@@ -2502,6 +2528,7 @@ dispatcher.add_handler(SUBS_FED)
 dispatcher.add_handler(UNSUBS_FED)
 dispatcher.add_handler(MY_SUB_FED)
 dispatcher.add_handler(MY_FEDS_LIST)
+dispatcher.add_handler(RENAME_FED)
 
 dispatcher.add_handler(DELETEBTN_FED_HANDLER)
 
