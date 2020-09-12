@@ -45,7 +45,7 @@ Wanna add me to your group? Just click the button below!
 buttons = [
     [
         InlineKeyboardButton(
-            text="Add to Group 👥", url="t.me/luh_finfchat?startgroup=true"
+            text="Add to Group 👥", url="t.me/platapusbot?startgroup=true"
         ),
         InlineKeyboardButton(text="Updates 📢", url="https://t.me/FinfNewsBot"),
     ]
