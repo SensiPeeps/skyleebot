@@ -47,7 +47,7 @@ buttons = [
         InlineKeyboardButton(
             text="Add to Group 👥", url="t.me/platapusbot?startgroup=true"
         ),
-        InlineKeyboardButton(text="Updates 📢", url="https://t.me/FinfNewsBot"),
+        InlineKeyboardButton(text="Updates 📢", url="https://t.me/FinfBotNews"),
     ]
 ]
 
