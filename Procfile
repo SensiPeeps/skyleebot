@@ -1,1 +1,1 @@
-web: python3 -m Perry
+web: python3 -m perry
