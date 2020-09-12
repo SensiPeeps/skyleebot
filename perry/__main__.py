@@ -32,12 +32,12 @@ from perry.modules.helper_funcs.alternate import typing_action
 
 
 PM_START_TEXT = f"""
-Hey there! My name is *{dispatcher.bot.first_name}*. If you have any questions on how to use me, click the Help button.
+Hey there! My name is *{dispatcher.bot.first_name}*. If you have any questions on how to use me, click the 'Help & Commands' button.
 
 I'm here to make your group management fun and easy!
 I have lots of handy features, such as flood control, a warning system, a note keeping system, and even replies on predetermined filters.
 
-Any issues or need help related to me?
+Any issues or need help related to me? Contact @YumiUzo_bot for reports!
 
 Wanna add me to your group? Just click the button below!
 """
@@ -45,9 +45,9 @@ Wanna add me to your group? Just click the button below!
 buttons = [
     [
         InlineKeyboardButton(
-            text="Add to Group 👥", url="t.me/platapusbot?startgroup=true"
+            text="Add to Group 👥", url="t.me/luh_finfchat?startgroup=true"
         ),
-        InlineKeyboardButton(text="Updates 📢", url="https://t.me/platapusbot"),
+        InlineKeyboardButton(text="Updates 📢", url="https://t.me/FinfNewsBot"),
     ]
 ]
 
@@ -165,7 +165,7 @@ def start(update, context):
 
         else:
             update.effective_message.reply_photo(
-                "https://telegra.ph/file/4edfb3738a35bdfa1922f.jpg",
+                "https://telegra.ph/file/39c9eb2839d62825da531.png",
                 PM_START_TEXT,
                 reply_markup=InlineKeyboardMarkup(buttons),
                 parse_mode=ParseMode.MARKDOWN,
