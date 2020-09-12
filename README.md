@@ -1,26 +1,26 @@
 # Perry
 > Forked from skyleebot by starryboi.
-> See also from the updates channel: <https://t.me/skyleebot/61>
 
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 [![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://GitHub.com/Naereen/)
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/7f42ce15d18a4bd48ece067637a2b71e)](https://www.codacy.com/manual/marchingon12/skyleebot?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=marchingon12/skyleebot&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/ac5b62f098ca476098e3e4e92b9a149c)](https://www.codacy.com/manual/marchingon12/Perry?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=marchingon12/Perry&amp;utm_campaign=Badge_Grade)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![Actively Maintained](https://img.shields.io/badge/Maintenance%20Level-Actively%20Maintained-green.svg)](https://gist.github.com/cheerfulstoic/d107229326a01ff0f333a1d3476e068d)
 
 ![logo](https://telegra.ph/file/39c9eb2839d62825da531.png)
 
 
-A modular telegram Python bot running on python3 with an sqlalchemy database.
+A modular Telegram Python bot running on python3 with an sqlalchemy database.
 
-Originally a simple group management bot with multiple admin features, it has evolved, becoming extremely modular and 
-simple to use. Note that this project uses well-known Telegram-bot of it's time @BanhammerMarie_bot from Paul Larson as it's base.
+Starting of as a simple group management bot with multiple admin features, it has evolved, becoming extremely modular and 
+simple to use. Note that this project uses well-known Telegram-bot of it's time @BanhammerMarie_bot from Paul Larson as it's base. 
+This bot is now used mainly for the finf group.
 
-Can be found on telegram as [Perry](https://t.me/perrytheplatapus_bot).
+Can be found on Telegram as [Perry](https://t.me/PlatapusBot).
 
-Join the [news channel](https://t.me/skyleebot) if you just want to stay in the loop about new features or
+Join the [news channel](https://t.me/FinfBotNews) if you just want to stay in the loop about new features or
 announcements.
 
 ## Credits
@@ -41,13 +41,13 @@ corsicanu and nunopenim for android modules
 
 starryboi for packing it all into Skylee
 
-Any other missing Credits can be seen in commits!
+Any other missing credits can be seen in commits!
 
 ## Starting the bot
 
 Once you've setup your database and your configuration (see below) is complete, simply run:
 
-`python3 -m skylee`
+`python3 -m Perry`
 
 
 ## Setting up the bot (Read this before trying to use!)
@@ -62,7 +62,7 @@ You may be using a server where sudo and superuser rights are not permitted by t
 There are two possible ways of configuring your bot: a config.py file, or ENV variables.
 
 The prefered version is to use a `config.py` file, as it makes it easier to see all your settings grouped together.
-This file should be placed in your `skylee` folder, alongside the `__main__.py` file . 
+This file should be placed in your `Perry` folder, alongside the `__main__.py` file . 
 This is where your bot token will be loaded from, as well as your database URI (if you're using a database), and most of 
 your other settings.
 
@@ -71,21 +71,21 @@ defaults set in the sample_config, hence making it easier to upgrade.
 
 An example `config.py` file could be:
 ```
-from skylee.sample_config import Config
+from Perry.sample_config import Config
 
 
 class Development(Config):
-    OWNER_ID =  894380120 # my telegram ID
-    OWNER_USERNAME = "starryboi"  # my telegram username
-    API_KEY = "your bot api key"  # my api key, as provided by the botfather
+    OWNER_ID =  894380120 # your telegram ID; easiest way is to search and start 'userinfobot' from Telegram directory
+    OWNER_USERNAME = "austinsama"  # your telegram username; if you don't have one, set one
+    API_KEY = "your bot api key"  # bot api token, as provided by the botfather (yes, daddy)
     SQLALCHEMY_DATABASE_URI = 'postgresql://username:password@localhost:5432/database'  # sample db credentials
-    MESSAGE_DUMP = '-1234567890' # some group chat that your bot is a member of
-    USE_MESSAGE_DUMP = True
+    MESSAGE_DUMP = '-1234567890' # group-chat/channel id; dumps logs as messages in dedicated room
+    USE_MESSAGE_DUMP = True # set true/false to log or not
     SUDO_USERS = []  # List of id's for users which have sudo access to the bot.
     LOAD = []
     NO_LOAD = []
-    TELETHON_HASH = None # for purge stuffs
-    TELETHON_ID = None
+    TELETHON_HASH = None # api_hash from my.telegram.org
+    TELETHON_ID = None # api_id from my.telegram.org
 ```
 
 ### Python dependencies
@@ -99,11 +99,11 @@ This will install all necessary python packages.
 ### Database
 
 If you wish to use a database-dependent module (eg: locks, notes, userinfo, users, filters, welcomes),
-you'll need to have a database installed on your system. I am using ElephantSQL as of now, but Postgresql is the recommended choice for optimal compatibility if you have sudo superuser rights.
+you'll need to have a database installed on your system. I am currently using ElephantSQL, but Postgresql is the recommended choice for optimal compatibility if you have sudo/superuser rights.
 
 #### ElephantSQL Setup
 
-For those who do not have access to sudo and superuser rights of the server you want to host Perry on, ElephantSQL is a good enough alternative with a limited free plan. In comparison to Postgresql, ElephantSQL hosts the database on a different server, whereas by using Postgresql you are directly putting the database in the host server for Perry to use. This method requires more steps.
+For those who do not have access to sudo and superuser rights of the server you want to host Perry on, ElephantSQL is a good enough alternative with a limited free plan. In comparison to Postgresql, ElephantSQL hosts the database on a different server, whereas by using Postgresql you are directly creating and using the database in the host server as a system user. This method requires less steps than the Postgres method, but you are putting your trust into the service provider (ElephantSQL - services currently available are: Google Cloud, AWS, Azure. Last checked: September 12th 2020).
 
 1. Sign up for an account.
 
@@ -111,7 +111,7 @@ For those who do not have access to sudo and superuser rights of the server you 
 
 3. Create your instance.
 
-4.
+4. Copy the URL and paste it where`SQLALCHEMY_DATABASE_URI =` lies in your `config.py` file.
 
 
 #### Postgres Setup
@@ -174,7 +174,7 @@ All that is needed is that your .py file be in the modules folder.
 
 To add commands, make sure to import the dispatcher via
 
-`from skylee import dispatcher`.
+`from Perry import dispatcher`.
 
 You can then add commands using the usual
 
