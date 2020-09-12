@@ -32,7 +32,7 @@ from perry.modules.helper_funcs.alternate import typing_action
 
 
 PM_START_TEXT = f"""
-Hey there! My name is *{dispatcher.bot.first_name}*. If you have any questions on how to use me, click the 'Help & Commands' button.
+Hey there! My name is <b>{dispatcher.bot.first_name}</b>. If you have any questions on how to use me, click the 'Help & Commands' button.
 
 I'm here to make your group management fun and easy!
 I have lots of handy features, such as flood control, a warning system, a note keeping system, and even replies on predetermined filters.
@@ -165,9 +165,9 @@ def start(update, context):
 
         else:
             update.effective_message.reply_text(
-                PM_START_TEXT,
+                text=PM_START_TEXT,
                 reply_markup=InlineKeyboardMarkup(buttons),
-                parse_mode=ParseMode.MARKDOWN,
+                parse_mode=ParseMode.HTML,
                 disable_web_page_preview=True,
             )
     else:
