@@ -1,26 +1,24 @@
-# SKYLEEBOT
-
-> **:warning: Project unmaintained!** Developers and maintainers of this bot doesn't have much free time to maintain the project. You have the right
-> to fork the code, but no technical support will be given if problems arise on your fork.
->
+# Perry
+> Forked from skyleebot by starryboi.
 > See also from the updates channel: <https://t.me/skyleebot/61>
 
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 [![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://GitHub.com/Naereen/)
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/843cdeb7f4124dd39eb3930939478259)](https://app.codacy.com/manual/starry69/skyleebot?utm_source=github.com&utm_medium=referral&utm_content=starry69/skyleebot&utm_campaign=Badge_Grade_Dashboard)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/7f42ce15d18a4bd48ece067637a2b71e)](https://www.codacy.com/manual/marchingon12/skyleebot?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=marchingon12/skyleebot&amp;utm_campaign=Badge_Grade)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
-[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+[![Actively Maintained](https://img.shields.io/badge/Maintenance%20Level-Actively%20Maintained-green.svg)](https://gist.github.com/cheerfulstoic/d107229326a01ff0f333a1d3476e068d)
 
-![logo](https://telegra.ph/file/0dd4a92bb893c1aaa6cee.jpg)
+![logo](https://telegra.ph/file/39c9eb2839d62825da531.png)
+
 
 A modular telegram Python bot running on python3 with an sqlalchemy database.
 
 Originally a simple group management bot with multiple admin features, it has evolved, becoming extremely modular and 
 simple to use. Note that this project uses well-known Telegram-bot of it's time @BanhammerMarie_bot from Paul Larson as it's base.
 
-Can be found on telegram as [Skylee](https://t.me/skylee_bot).
+Can be found on telegram as [Perry](https://t.me/perrytheplatapus_bot).
 
 Join the [news channel](https://t.me/skyleebot) if you just want to stay in the loop about new features or
 announcements.
@@ -41,6 +39,8 @@ ATechnoHazard for many stuffs
 
 corsicanu and nunopenim for android modules
 
+starryboi for packing it all into Skylee
+
 Any other missing Credits can be seen in commits!
 
 ## Starting the bot
@@ -54,6 +54,8 @@ Once you've setup your database and your configuration (see below) is complete, 
 
 Please make sure to use python3.6, as I cannot guarantee everything will work as expected on older python versions!
 This is because markdown parsing is done by iterating through a dict, which are ordered by default in 3.6.
+
+You may be using a server where sudo and superuser rights are not permitted by the admins and can only access the server using ssh. If this is the case, you may want to use [tmux](https://github.com/tmux/tmux/wiki), so that when you disconnect from your ssh session the bot will be kept alive.
 
 ### Configuration
 
@@ -97,13 +99,30 @@ This will install all necessary python packages.
 ### Database
 
 If you wish to use a database-dependent module (eg: locks, notes, userinfo, users, filters, welcomes),
-you'll need to have a database installed on your system. I use postgres, so I recommend using it for optimal compatibility.
+you'll need to have a database installed on your system. I am using ElephantSQL as of now, but Postgresql is the recommended choice for optimal compatibility if you have sudo superuser rights.
 
-In the case of postgres, this is how you would set up a the database on a debian/ubuntu system. Other distributions may vary.
+#### ElephantSQL Setup
+
+For those who do not have access to sudo and superuser rights of the server you want to host Perry on, ElephantSQL is a good enough alternative with a limited free plan. In comparison to Postgresql, ElephantSQL hosts the database on a different server, whereas by using Postgresql you are directly putting the database in the host server for Perry to use. This method requires more steps.
+
+1. Sign up for an account.
+
+2. Choose your plan. You will get options to choose which region and which company to host the database server on.
+
+3. Create your instance.
+
+4.
+
+
+#### Postgres Setup
+In the case of Postgres, this is how you would set up a the database on a debian/ubuntu system. Other distributions may vary.
 
 - install postgresql:
 
-`sudo apt-get update && sudo apt-get install postgresql`
+Debian/Ubuntu:\
+`sudo apt-get update && sudo apt-get install postgresql`\
+Arch Linux:\
+`sudo pacman -Syu && sudo pacman -S postgresql`
 
 - change to the postgres user:
 
