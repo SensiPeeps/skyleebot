@@ -47,7 +47,7 @@ Any other missing credits can be seen in commits!
 
 Once you've setup your database and your configuration (see below) is complete, simply run:
 
-`python3 -m Perry`
+`python3 -m perry`
 
 
 ## Setting up the bot (Read this before trying to use!)
@@ -62,7 +62,7 @@ You may be using a server where sudo and superuser rights are not permitted by t
 There are two possible ways of configuring your bot: a config.py file, or ENV variables.
 
 The prefered version is to use a `config.py` file, as it makes it easier to see all your settings grouped together.
-This file should be placed in your `Perry` folder, alongside the `__main__.py` file . 
+This file should be placed in your `perry` folder, alongside the `__main__.py` file . 
 This is where your bot token will be loaded from, as well as your database URI (if you're using a database), and most of 
 your other settings.
 
@@ -71,7 +71,7 @@ defaults set in the sample_config, hence making it easier to upgrade.
 
 An example `config.py` file could be:
 ```
-from Perry.sample_config import Config
+from perry.sample_config import Config
 
 
 class Development(Config):
