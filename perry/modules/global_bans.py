@@ -6,8 +6,8 @@ from telegram.error import BadRequest, TelegramError
 from telegram.ext import run_async, CommandHandler, MessageHandler, Filters
 from telegram.utils.helpers import mention_html
 
-import skylee.modules.sql.global_bans_sql as sql
-from skylee import (
+import perry.modules.sql.global_bans_sql as sql
+from perry import (
     dispatcher,
     OWNER_ID,
     SUDO_USERS,
@@ -16,11 +16,11 @@ from skylee import (
     MESSAGE_DUMP,
     spamwtc,
 )
-from skylee.modules.helper_funcs.chat_status import user_admin, is_user_admin
-from skylee.modules.helper_funcs.extraction import extract_user, extract_user_and_text
-from skylee.modules.helper_funcs.filters import CustomFilters
-from skylee.modules.helper_funcs.alternate import typing_action, send_action
-from skylee.modules.sql.users_sql import get_all_chats
+from perry.modules.helper_funcs.chat_status import user_admin, is_user_admin
+from perry.modules.helper_funcs.extraction import extract_user, extract_user_and_text
+from perry.modules.helper_funcs.filters import CustomFilters
+from perry.modules.helper_funcs.alternate import typing_action, send_action
+from perry.modules.sql.users_sql import get_all_chats
 
 GBAN_ENFORCE_GROUP = 6
 
@@ -409,7 +409,7 @@ def __user_info__(user_id):
         user = sql.get_gbanned_user(user_id)
         if user.reason:
             text += "\nReason: {}".format(html.escape(user.reason))
-            text += "\n\nAppeal at @skyleebot if you think it's invalid."
+            text += "\n\nAppeal at @perrybot if you think it's invalid."
     else:
         text = text.format("No")
     return text
@@ -432,7 +432,7 @@ Spam shield uses @Spamwatch API and Global bans to remove Spammers as much as po
 *What is SpamWatch?*
 
 SpamWatch maintains a large constantly updated ban-list of spambots, trolls, bitcoin spammers and unsavoury characters.
-Skylee will constantly help banning spammers off from your group automatically So, you don't have to worry about spammers storming your group[.](https://telegra.ph/file/c1051d264a5b4146bd71e.jpg)
+perry will constantly help banning spammers off from your group automatically So, you don't have to worry about spammers storming your group[.](https://telegra.ph/file/c1051d264a5b4146bd71e.jpg)
 """
 
 __mod_name__ = "Spam Shield"

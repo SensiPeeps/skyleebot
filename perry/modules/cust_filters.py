@@ -13,24 +13,24 @@ from telegram.ext import (
 )
 from telegram.utils.helpers import mention_html, escape_markdown
 
-from skylee import dispatcher, LOGGER
-from skylee.modules.disable import DisableAbleCommandHandler
-from skylee.modules.helper_funcs.chat_status import user_admin
-from skylee.modules.helper_funcs.extraction import extract_text
-from skylee.modules.helper_funcs.filters import CustomFilters
-from skylee.modules.helper_funcs.misc import build_keyboard_parser
-from skylee.modules.helper_funcs.msg_types import get_filter_type
-from skylee.modules.helper_funcs.string_handling import (
+from perry import dispatcher, LOGGER
+from perry.modules.disable import DisableAbleCommandHandler
+from perry.modules.helper_funcs.chat_status import user_admin
+from perry.modules.helper_funcs.extraction import extract_text
+from perry.modules.helper_funcs.filters import CustomFilters
+from perry.modules.helper_funcs.misc import build_keyboard_parser
+from perry.modules.helper_funcs.msg_types import get_filter_type
+from perry.modules.helper_funcs.string_handling import (
     split_quotes,
     button_markdown_parser,
     escape_invalid_curly_brackets,
     markdown_to_html,
 )
-from skylee.modules.sql import cust_filters_sql as sql
+from perry.modules.sql import cust_filters_sql as sql
 
-from skylee.modules.connection import connected
+from perry.modules.connection import connected
 
-from skylee.modules.helper_funcs.alternate import send_message, typing_action
+from perry.modules.helper_funcs.alternate import send_message, typing_action
 
 HANDLER_GROUP = 15
 

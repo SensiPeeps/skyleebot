@@ -6,18 +6,18 @@ from telegram.error import BadRequest
 from telegram.ext import CommandHandler, MessageHandler, Filters, run_async
 from telegram.utils.helpers import mention_html
 
-import skylee.modules.sql.blacklist_sql as sql
-from skylee import dispatcher, LOGGER
-from skylee.modules.disable import DisableAbleCommandHandler
-from skylee.modules.helper_funcs.chat_status import user_admin, user_not_admin
-from skylee.modules.helper_funcs.extraction import extract_text
-from skylee.modules.helper_funcs.misc import split_message
-from skylee.modules.log_channel import loggable
-from skylee.modules.warns import warn
-from skylee.modules.helper_funcs.string_handling import extract_time
-from skylee.modules.connection import connected
+import perry.modules.sql.blacklist_sql as sql
+from perry import dispatcher, LOGGER
+from perry.modules.disable import DisableAbleCommandHandler
+from perry.modules.helper_funcs.chat_status import user_admin, user_not_admin
+from perry.modules.helper_funcs.extraction import extract_text
+from perry.modules.helper_funcs.misc import split_message
+from perry.modules.log_channel import loggable
+from perry.modules.warns import warn
+from perry.modules.helper_funcs.string_handling import extract_time
+from perry.modules.connection import connected
 
-from skylee.modules.helper_funcs.alternate import send_message, typing_action
+from perry.modules.helper_funcs.alternate import send_message, typing_action
 
 BLACKLIST_GROUP = 11
 
@@ -251,7 +251,7 @@ def blacklist_mode(update, context):
         elif args[0].lower() == "tban":
             if len(args) == 1:
                 teks = """It looks like you tried to set time value for blacklist but you didn't specified time; Try, `/blacklistmode tban <timevalue>`.
-				
+
 Examples of time value: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks."""
                 send_message(update.effective_message, teks, parse_mode="markdown")
                 return ""

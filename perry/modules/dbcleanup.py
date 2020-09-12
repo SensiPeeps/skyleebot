@@ -4,9 +4,9 @@ from telegram import Bot, Update, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.error import BadRequest, Unauthorized
 from telegram.ext import CommandHandler, CallbackQueryHandler, run_async, Filters
 
-import skylee.modules.sql.global_bans_sql as gban_sql
-import skylee.modules.sql.users_sql as user_sql
-from skylee import dispatcher, OWNER_ID
+import perry.modules.sql.global_bans_sql as gban_sql
+import perry.modules.sql.users_sql as user_sql
+from perry import dispatcher, OWNER_ID
 
 
 def get_invalid_chats(bot: Bot, update: Update, remove: bool = False):

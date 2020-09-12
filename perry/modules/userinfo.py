@@ -6,11 +6,11 @@ from telegram import ParseMode, MAX_MESSAGE_LENGTH
 from telegram.ext.dispatcher import run_async
 from telegram.utils.helpers import escape_markdown
 
-import skylee.modules.sql.userinfo_sql as sql
-from skylee import dispatcher, SUDO_USERS
-from skylee.modules.disable import DisableAbleCommandHandler
-from skylee.modules.helper_funcs.extraction import extract_user
-from skylee.modules.helper_funcs.alternate import typing_action
+import perry.modules.sql.userinfo_sql as sql
+from perry import dispatcher, SUDO_USERS
+from perry.modules.disable import DisableAbleCommandHandler
+from perry.modules.helper_funcs.extraction import extract_user
+from perry.modules.helper_funcs.alternate import typing_action
 
 
 @run_async

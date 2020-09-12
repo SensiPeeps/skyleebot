@@ -23,7 +23,7 @@ from telegram.ext import CommandHandler, run_async, Filters
 from telegram.utils.helpers import escape_markdown, mention_html
 from telegram.error import BadRequest
 
-from skylee import (
+from perry import (
     dispatcher,
     OWNER_ID,
     SUDO_USERS,
@@ -32,11 +32,11 @@ from skylee import (
     WALL_API,
     spamwtc,
 )
-from skylee.__main__ import STATS, USER_INFO, GDPR
-from skylee.modules.disable import DisableAbleCommandHandler
-from skylee.modules.helper_funcs.extraction import extract_user
-from skylee.modules.helper_funcs.filters import CustomFilters
-from skylee.modules.helper_funcs.alternate import typing_action, send_action
+from perry.__main__ import STATS, USER_INFO, GDPR
+from perry.modules.disable import DisableAbleCommandHandler
+from perry.modules.helper_funcs.extraction import extract_user
+from perry.modules.helper_funcs.filters import CustomFilters
+from perry.modules.helper_funcs.alternate import typing_action, send_action
 
 
 @run_async
@@ -217,7 +217,7 @@ def gdpr(update, context):
 
     update.effective_message.reply_text(
         "Your personal data has been deleted.\n\nNote that this will not unban "
-        "you from any chats, as that is telegram data, not Skylee data. "
+        "you from any chats, as that is telegram data, not perry data. "
         "Flooding, warns, and gbans are also preserved, as of "
         "[this](https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-erasure/), "
         "which clearly states that the right to erasure does not apply "
@@ -341,7 +341,7 @@ def ud(update, context):
 @typing_action
 def src(update, context):
     update.effective_message.reply_text(
-        "Hey there! You can find what makes me click [here](www.github.com/starry69/skyleebot).",
+        "Hey there! You can find what makes me click [here](www.github.com/starry69/perrybot).",
         parse_mode=ParseMode.MARKDOWN,
         disable_web_page_preview=True,
     )
@@ -505,7 +505,7 @@ An "odds and ends" module for small, simple commands which don't really fit anyw
  × /wiki : Search wikipedia articles.
  × /rmeme: Sends random meme scraped from reddit.
  × /ud <query> : Search stuffs in urban dictionary.
- × /wall <query> : Get random wallpapers directly from bot! 
+ × /wall <query> : Get random wallpapers directly from bot!
  × /reverse : Reverse searches image or stickers on google.
  × /gdpr: Deletes your information from the bot's database. Private chats only.
  × /markdownhelp: Quick summary of how markdown works in telegram - can only be called in private chats.

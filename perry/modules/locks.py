@@ -9,20 +9,20 @@ from telegram.utils.helpers import mention_html
 
 from alphabet_detector import AlphabetDetector
 
-import skylee.modules.sql.locks_sql as sql
-from skylee import dispatcher, SUDO_USERS, LOGGER
-from skylee.modules.disable import DisableAbleCommandHandler
-from skylee.modules.helper_funcs.chat_status import (
+import perry.modules.sql.locks_sql as sql
+from perry import dispatcher, SUDO_USERS, LOGGER
+from perry.modules.disable import DisableAbleCommandHandler
+from perry.modules.helper_funcs.chat_status import (
     can_delete,
     is_user_admin,
     user_not_admin,
     is_bot_admin,
     user_admin,
 )
-from skylee.modules.log_channel import loggable
-from skylee.modules.connection import connected
+from perry.modules.log_channel import loggable
+from perry.modules.connection import connected
 
-from skylee.modules.helper_funcs.alternate import send_message, typing_action
+from perry.modules.helper_funcs.alternate import send_message, typing_action
 
 ad = AlphabetDetector()
 
@@ -562,12 +562,12 @@ The locks module allows you to lock away some common items in the \
 telegram world; the bot will automatically delete them!
 
  × /locktypes: Lists all possible locktypes
- 
+
 *Admin only:*
  × /lock <type>: Lock items of a certain type (not available in private)
  × /unlock <type>: Unlock items of a certain type (not available in private)
  × /locks: The current list of locks in this chat.
- 
+
 Locks can be used to restrict a group's users.
 eg:
 Locking urls will auto-delete all messages with urls, locking stickers will restrict all \

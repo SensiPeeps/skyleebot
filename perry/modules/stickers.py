@@ -9,9 +9,9 @@ from telegram import TelegramError
 from telegram.ext import run_async
 from telegram.utils.helpers import mention_html
 
-from skylee import dispatcher
-from skylee.modules.disable import DisableAbleCommandHandler
-from skylee.modules.helper_funcs.alternate import typing_action
+from perry import dispatcher
+from perry.modules.disable import DisableAbleCommandHandler
+from perry.modules.helper_funcs.alternate import typing_action
 
 
 @run_async

@@ -10,8 +10,8 @@ from sqlalchemy import (
     func,
 )
 
-from skylee import dispatcher
-from skylee.modules.sql import BASE, SESSION
+from perry import dispatcher
+from perry.modules.sql import BASE, SESSION
 
 
 class Users(BASE):

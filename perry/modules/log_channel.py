@@ -1,5 +1,5 @@
 from functools import wraps
-from skylee.modules.helper_funcs.misc import is_module_loaded
+from perry.modules.helper_funcs.misc import is_module_loaded
 
 FILENAME = __name__.rsplit(".", 1)[-1]
 
@@ -9,9 +9,9 @@ if is_module_loaded(FILENAME):
     from telegram.ext import CommandHandler, run_async
     from telegram.utils.helpers import escape_markdown
 
-    from skylee import dispatcher, LOGGER
-    from skylee.modules.helper_funcs.chat_status import user_admin
-    from skylee.modules.sql import log_channel_sql as sql
+    from perry import dispatcher, LOGGER
+    from perry.modules.helper_funcs.chat_status import user_admin
+    from perry.modules.sql import log_channel_sql as sql
 
     def loggable(func):
         @wraps(func)

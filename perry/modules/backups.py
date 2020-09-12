@@ -5,23 +5,23 @@ from telegram import ParseMode, Message
 from telegram.error import BadRequest
 from telegram.ext import CommandHandler, run_async
 
-import skylee.modules.sql.notes_sql as sql
-from skylee import dispatcher, LOGGER, OWNER_ID, MESSAGE_DUMP
-from skylee.__main__ import DATA_IMPORT
-from skylee.modules.helper_funcs.chat_status import user_admin
-from skylee.modules.helper_funcs.alternate import typing_action
+import perry.modules.sql.notes_sql as sql
+from perry import dispatcher, LOGGER, OWNER_ID, MESSAGE_DUMP
+from perry.__main__ import DATA_IMPORT
+from perry.modules.helper_funcs.chat_status import user_admin
+from perry.modules.helper_funcs.alternate import typing_action
 
-# from skylee.modules.rules import get_rules
-import skylee.modules.sql.rules_sql as rulessql
+# from perry.modules.rules import get_rules
+import perry.modules.sql.rules_sql as rulessql
 
-# from skylee.modules.sql import warns_sql as warnssql
-import skylee.modules.sql.blacklist_sql as blacklistsql
-from skylee.modules.sql import disable_sql as disabledsql
+# from perry.modules.sql import warns_sql as warnssql
+import perry.modules.sql.blacklist_sql as blacklistsql
+from perry.modules.sql import disable_sql as disabledsql
 
-# from skylee.modules.sql import cust_filters_sql as filtersql
-# import skylee.modules.sql.welcome_sql as welcsql
-import skylee.modules.sql.locks_sql as locksql
-from skylee.modules.connection import connected
+# from perry.modules.sql import cust_filters_sql as filtersql
+# import perry.modules.sql.welcome_sql as welcsql
+import perry.modules.sql.locks_sql as locksql
+from perry.modules.connection import connected
 
 
 @run_async
@@ -328,7 +328,7 @@ def export_data(update, context):
         },
     }
     baccinfo = json.dumps(backup, indent=4)
-    f = open("SkyLee{}.backup".format(chat_id), "w")
+    f = open("perry{}.backup".format(chat_id), "w")
     f.write(str(baccinfo))
     f.close()
     context.bot.sendChatAction(current_chat_id, "upload_document")
@@ -345,15 +345,15 @@ def export_data(update, context):
         pass
     context.bot.sendDocument(
         current_chat_id,
-        document=open("SkyLee{}.backup".format(chat_id), "rb"),
-        caption="*Successfully imported backup:*\nChat: `{}`\nChat ID: `{}`\nOn: `{}`\n\nNote: This `SkyLee-Backup` is specially made for notes.".format(
+        document=open("perry{}.backup".format(chat_id), "rb"),
+        caption="*Successfully imported backup:*\nChat: `{}`\nChat ID: `{}`\nOn: `{}`\n\nNote: This `perry-Backup` is specially made for notes.".format(
             chat.title, chat_id, tgl
         ),
         timeout=360,
         reply_to_message_id=msg.message_id,
         parse_mode=ParseMode.MARKDOWN,
     )
-    os.remove("SkyLee{}.backup".format(chat_id))  # Cleaning file
+    os.remove("perry{}.backup".format(chat_id))  # Cleaning file
 
 
 # Temporary data

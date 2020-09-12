@@ -3,7 +3,7 @@ from typing import Union
 
 from sqlalchemy import Column, Integer, String, Boolean
 
-from skylee.modules.sql import SESSION, BASE
+from perry.modules.sql import SESSION, BASE
 
 
 class ReportingUserSettings(BASE):

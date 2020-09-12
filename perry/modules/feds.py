@@ -20,7 +20,7 @@ from telegram import (
 from telegram.ext import run_async, CommandHandler, CallbackQueryHandler
 from telegram.utils.helpers import mention_html, mention_markdown
 
-from skylee import (
+from perry import (
     dispatcher,
     OWNER_ID,
     SUDO_USERS,
@@ -28,18 +28,18 @@ from skylee import (
     MESSAGE_DUMP,
     LOGGER,
 )
-from skylee.modules.helper_funcs.chat_status import is_user_admin
-from skylee.modules.helper_funcs.extraction import (
+from perry.modules.helper_funcs.chat_status import is_user_admin
+from perry.modules.helper_funcs.extraction import (
     extract_user,
     extract_unt_fedban,
     extract_user_fban,
 )
-from skylee.modules.helper_funcs.string_handling import markdown_parser
-from skylee.modules.disable import DisableAbleCommandHandler
+from perry.modules.helper_funcs.string_handling import markdown_parser
+from perry.modules.disable import DisableAbleCommandHandler
 
-import skylee.modules.sql.feds_sql as sql
+import perry.modules.sql.feds_sql as sql
 
-from skylee.modules.helper_funcs.alternate import (
+from perry.modules.helper_funcs.alternate import (
     send_message,
     typing_action,
     send_action,
@@ -908,7 +908,7 @@ def fed_ban(update, context):
 							 "\n<b>Federation Admin:</b> {}" \
 							 "\n<b>User:</b> {}" \
 							 "\n<b>User ID:</b> <code>{}</code>" \
-							 "\n<b>Reason:</b> {}".format(fed_name, mention_html(user.id, user.first_name), user_target, fban_user_id, reason), 
+							 "\n<b>Reason:</b> {}".format(fed_name, mention_html(user.id, user.first_name), user_target, fban_user_id, reason),
 							html=True)
 		"""
 
@@ -1389,10 +1389,10 @@ def fed_ban_list(update, context):
                 backups += json.dumps(json_parser)
                 backups += "\n"
             with BytesIO(str.encode(backups)) as output:
-                output.name = "skylee_fbanned_users.json"
+                output.name = "perry_fbanned_users.json"
                 update.effective_message.reply_document(
                     document=output,
-                    filename="skylee_fbanned_users.json",
+                    filename="perry_fbanned_users.json",
                     caption="Total {} User are blocked by the Federation {}.".format(
                         len(getfban), info["fname"]
                     ),
@@ -1432,10 +1432,10 @@ def fed_ban_list(update, context):
                 )
                 backups += "\n"
             with BytesIO(str.encode(backups)) as output:
-                output.name = "skylee_fbanned_users.csv"
+                output.name = "perry_fbanned_users.csv"
                 update.effective_message.reply_document(
                     document=output,
-                    filename="skylee_fbanned_users.csv",
+                    filename="perry_fbanned_users.csv",
                     caption="Total {} User are blocked by Federation {}.".format(
                         len(getfban), info["fname"]
                     ),

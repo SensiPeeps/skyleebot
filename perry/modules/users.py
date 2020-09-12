@@ -7,9 +7,9 @@ from telegram.error import BadRequest
 from telegram.ext import MessageHandler, Filters, CommandHandler
 from telegram.ext.dispatcher import run_async
 
-import skylee.modules.sql.users_sql as sql
-from skylee import dispatcher, OWNER_ID, LOGGER
-from skylee.modules.helper_funcs.filters import CustomFilters
+import perry.modules.sql.users_sql as sql
+from perry import dispatcher, OWNER_ID, LOGGER
+from perry.modules.helper_funcs.filters import CustomFilters
 
 USERS_GROUP = 4
 CHAT_GROUP = 10

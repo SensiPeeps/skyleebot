@@ -6,11 +6,11 @@ from telegram.error import BadRequest
 from telegram.ext import CommandHandler, run_async, Filters
 from telegram.utils.helpers import escape_markdown
 
-import skylee.modules.sql.rules_sql as sql
-from skylee import dispatcher
-from skylee.modules.helper_funcs.chat_status import user_admin
-from skylee.modules.helper_funcs.string_handling import markdown_parser
-from skylee.modules.helper_funcs.alternate import typing_action
+import perry.modules.sql.rules_sql as sql
+from perry import dispatcher
+from perry.modules.helper_funcs.chat_status import user_admin
+from perry.modules.helper_funcs.string_handling import markdown_parser
+from perry.modules.helper_funcs.alternate import typing_action
 
 
 @run_async

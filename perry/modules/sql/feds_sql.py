@@ -3,8 +3,8 @@ import threading
 from sqlalchemy import Column, String, UnicodeText, Integer, Boolean
 from telegram.error import BadRequest, Unauthorized
 
-from skylee import dispatcher
-from skylee.modules.sql import SESSION, BASE
+from perry import dispatcher
+from perry.modules.sql import SESSION, BASE
 
 
 class Federations(BASE):

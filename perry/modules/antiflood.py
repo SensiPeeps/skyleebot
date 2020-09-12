@@ -6,14 +6,14 @@ from telegram.error import BadRequest
 from telegram.ext import Filters, MessageHandler, CommandHandler, run_async
 from telegram.utils.helpers import mention_html
 
-from skylee import dispatcher
-from skylee.modules.helper_funcs.chat_status import is_user_admin, user_admin
-from skylee.modules.helper_funcs.string_handling import extract_time
-from skylee.modules.log_channel import loggable
-from skylee.modules.sql import antiflood_sql as sql
-from skylee.modules.connection import connected
+from perry import dispatcher
+from perry.modules.helper_funcs.chat_status import is_user_admin, user_admin
+from perry.modules.helper_funcs.string_handling import extract_time
+from perry.modules.log_channel import loggable
+from perry.modules.sql import antiflood_sql as sql
+from perry.modules.connection import connected
 
-from skylee.modules.helper_funcs.alternate import send_message, typing_action
+from perry.modules.helper_funcs.alternate import send_message, typing_action
 
 FLOOD_GROUP = 3
 

@@ -5,9 +5,9 @@ from telegram.error import BadRequest
 from telegram.ext import run_async, CommandHandler, Filters
 from telegram.utils.helpers import mention_html
 
-from skylee import dispatcher, LOGGER
-from skylee.modules.disable import DisableAbleCommandHandler
-from skylee.modules.helper_funcs.chat_status import (
+from perry import dispatcher, LOGGER
+from perry.modules.disable import DisableAbleCommandHandler
+from perry.modules.helper_funcs.chat_status import (
     bot_admin,
     user_admin,
     is_user_ban_protected,
@@ -15,11 +15,11 @@ from skylee.modules.helper_funcs.chat_status import (
     is_user_admin,
     is_user_in_chat,
 )
-from skylee.modules.helper_funcs.extraction import extract_user_and_text
-from skylee.modules.helper_funcs.string_handling import extract_time
-from skylee.modules.helper_funcs.admin_rights import user_can_ban
-from skylee.modules.helper_funcs.alternate import typing_action
-from skylee.modules.log_channel import loggable
+from perry.modules.helper_funcs.extraction import extract_user_and_text
+from perry.modules.helper_funcs.string_handling import extract_time
+from perry.modules.helper_funcs.admin_rights import user_can_ban
+from perry.modules.helper_funcs.alternate import typing_action
+from perry.modules.log_channel import loggable
 
 
 @run_async

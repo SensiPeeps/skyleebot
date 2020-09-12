@@ -4,8 +4,8 @@ import sre_constants
 import telegram
 from telegram.ext import Filters, run_async
 
-from skylee import dispatcher, LOGGER
-from skylee.modules.disable import DisableAbleMessageHandler
+from perry import dispatcher, LOGGER
+from perry.modules.disable import DisableAbleMessageHandler
 
 DELIMITERS = ("/", ":", "|", "_")
 

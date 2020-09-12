@@ -16,26 +16,26 @@ from telegram.ext import (
 )
 from telegram.utils.helpers import mention_html
 
-from skylee import dispatcher  # BAN_STICKER
-from skylee.modules.disable import DisableAbleCommandHandler
-from skylee.modules.helper_funcs.chat_status import (
+from perry import dispatcher  # BAN_STICKER
+from perry.modules.disable import DisableAbleCommandHandler
+from perry.modules.helper_funcs.chat_status import (
     is_user_admin,
     bot_admin,
     user_admin_no_reply,
     user_admin,
     can_restrict,
 )
-from skylee.modules.helper_funcs.extraction import (
+from perry.modules.helper_funcs.extraction import (
     extract_text,
     extract_user_and_text,
     extract_user,
 )
-from skylee.modules.helper_funcs.filters import CustomFilters
-from skylee.modules.helper_funcs.misc import split_message
-from skylee.modules.helper_funcs.string_handling import split_quotes
-from skylee.modules.helper_funcs.alternate import typing_action
-from skylee.modules.log_channel import loggable
-from skylee.modules.sql import warns_sql as sql
+from perry.modules.helper_funcs.filters import CustomFilters
+from perry.modules.helper_funcs.misc import split_message
+from perry.modules.helper_funcs.string_handling import split_quotes
+from perry.modules.helper_funcs.alternate import typing_action
+from perry.modules.log_channel import loggable
+from perry.modules.sql import warns_sql as sql
 
 WARN_HANDLER_GROUP = 9
 CURRENT_WARNING_FILTER_STRING = "<b>Current warning filters in this chat:</b>\n"
@@ -555,7 +555,7 @@ __help__ = """
  × /rmwarn <userhandle>: Removes latest warn for a user. It also can be used as reply.
  × /unwarn <userhandle>: Same as /rmwarn
  × /addwarn <keyword> <reply message>: Sets a warning filter on a certain keyword. If you want your keyword to \
-be a sentence, encompass it with quotes, as such: `/addwarn "very angry" This is an angry user`. 
+be a sentence, encompass it with quotes, as such: `/addwarn "very angry" This is an angry user`.
  × /nowarn <keyword>: Stops a warning filter
  × /warnlimit <num>: Sets the warning limit
  × /strongwarn <on/yes/off/no>: If set to on, exceeding the warn limit will result in a ban. Else, will just kick.

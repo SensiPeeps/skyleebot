@@ -6,13 +6,13 @@ from telegram.ext import Filters, CommandHandler, run_async
 from telegram.error import BadRequest
 from telegram.utils.helpers import escape_markdown
 
-from skylee.modules.helper_funcs.extraction import extract_user
-from skylee.modules.helper_funcs.filters import CustomFilters
-from skylee.modules.helper_funcs.alternate import typing_action
-from skylee import dispatcher, SUDO_USERS, SUPPORT_USERS, LOGGER
-from skylee.modules.disable import DisableAbleCommandHandler, DisableAbleMessageHandler
+from perry.modules.helper_funcs.extraction import extract_user
+from perry.modules.helper_funcs.filters import CustomFilters
+from perry.modules.helper_funcs.alternate import typing_action
+from perry import dispatcher, SUDO_USERS, SUPPORT_USERS, LOGGER
+from perry.modules.disable import DisableAbleCommandHandler, DisableAbleMessageHandler
 
-import skylee.modules.helper_funcs.fun_strings as fun
+import perry.modules.helper_funcs.fun_strings as fun
 
 
 @run_async
@@ -452,12 +452,12 @@ Some dank memes for fun or whatever!
 
 *Regex based memes:*
 
-`/decide` can be also used with regex like: `skylee? <question>: randomly answer "Yes, No" etc.`
+`/decide` can be also used with regex like: `perry? <question>: randomly answer "Yes, No" etc.`
 
 Some other regex filters are:
 `me too` | `goodmorning` | `goodnight`.
 
-Skylee will reply random strings accordingly when these words are used!
+perry will reply random strings accordingly when these words are used!
 All regex filters can be disabled incase u don't want... like: `/disable metoo`.
 
 """
@@ -466,7 +466,7 @@ __mod_name__ = "Memes"
 
 SHRUG_HANDLER = DisableAbleCommandHandler("shrug", shrug)
 DECIDE_HANDLER = DisableAbleMessageHandler(
-    Filters.regex(r"(?i)^skylee\?"), decide, friendly="decide"
+    Filters.regex(r"(?i)^perry\?"), decide, friendly="decide"
 )
 SNIPE_HANDLER = CommandHandler(
     "snipe", snipe, pass_args=True, filters=CustomFilters.sudo_filter

@@ -1,7 +1,7 @@
-skylee/config.py
+perry/config.py
 logfile
-skylee.session
-skylee.session-journal
+perry.session
+perry.session-journal
 *.pyc
 .idea/
 .project
@@ -14,5 +14,5 @@ sticker.png
 kangsticker.png
 kangsticker.tgs
 kangsticker
-skylee.mp3
+perry.mp3
 gpic.png

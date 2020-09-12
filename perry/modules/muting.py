@@ -8,18 +8,18 @@ from telegram.ext import CommandHandler, Filters
 from telegram.ext.dispatcher import run_async
 from telegram.utils.helpers import mention_html
 
-from skylee import dispatcher, LOGGER
-from skylee.modules.helper_funcs.chat_status import (
+from perry import dispatcher, LOGGER
+from perry.modules.helper_funcs.chat_status import (
     bot_admin,
     user_admin,
     is_user_admin,
     can_restrict,
 )
-from skylee.modules.helper_funcs.extraction import extract_user, extract_user_and_text
-from skylee.modules.helper_funcs.string_handling import extract_time
-from skylee.modules.helper_funcs.admin_rights import user_can_ban
-from skylee.modules.helper_funcs.alternate import typing_action
-from skylee.modules.log_channel import loggable
+from perry.modules.helper_funcs.extraction import extract_user, extract_user_and_text
+from perry.modules.helper_funcs.string_handling import extract_time
+from perry.modules.helper_funcs.admin_rights import user_can_ban
+from perry.modules.helper_funcs.alternate import typing_action
+from perry.modules.log_channel import loggable
 
 
 @run_async
@@ -260,7 +260,7 @@ This module allows you to do that easily, by exposing some common actions, so ev
 *Admin only:*
  × /mute <userhandle>: Silences a user. Can also be used as a reply, muting the replied to user.
  × /tmute <userhandle> x(m/h/d): Mutes a user for x time. (via handle, or reply). m = minutes, h = hours, d = days.
- × /unmute <userhandle>: Unmutes a user. Can also be used as a reply, muting the replied to user. 
+ × /unmute <userhandle>: Unmutes a user. Can also be used as a reply, muting the replied to user.
 An example of temporarily mute someone:
 `/tmute @username 2h`; This mutes a user for 2 hours.
 """

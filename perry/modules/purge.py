@@ -1,4 +1,4 @@
-from skylee import client, SUDO_USERS
+from perry import client, SUDO_USERS
 
 import asyncio
 from telethon import events

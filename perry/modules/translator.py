@@ -8,9 +8,9 @@ from emoji import UNICODE_EMOJI
 from telegram import ChatAction
 from telegram.ext import run_async
 
-from skylee import dispatcher
-from skylee.modules.disable import DisableAbleCommandHandler
-from skylee.modules.helper_funcs.alternate import typing_action, send_action
+from perry import dispatcher
+from perry.modules.disable import DisableAbleCommandHandler
+from perry.modules.helper_funcs.alternate import typing_action, send_action
 
 from googletrans import Translator
 
@@ -55,12 +55,12 @@ def gtts(update, context):
             reply = reply.replace(x, "")
     try:
         tts = gTTS(reply)
-        tts.save("skylee.mp3")
-        with open("skylee.mp3", "rb") as speech:
+        tts.save("perry.mp3")
+        with open("perry.mp3", "rb") as speech:
             msg.reply_audio(speech)
     finally:
-        if os.path.isfile("skylee.mp3"):
-            os.remove("skylee.mp3")
+        if os.path.isfile("perry.mp3"):
+            os.remove("perry.mp3")
 
 
 # Open API key

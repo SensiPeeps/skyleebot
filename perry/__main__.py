@@ -8,7 +8,7 @@ from telegram.ext import CommandHandler, Filters, MessageHandler, CallbackQueryH
 from telegram.ext.dispatcher import run_async, DispatcherHandlerStop
 from telegram.utils.helpers import escape_markdown
 
-from skylee import (
+from perry import (
     dispatcher,
     updater,
     TOKEN,
@@ -24,30 +24,30 @@ from skylee import (
 
 # needed to dynamically load modules
 # NOTE: Module order is not guaranteed, specify that in the config file!
-from skylee.modules import ALL_MODULES
-from skylee.modules.purge import client
-from skylee.modules.helper_funcs.chat_status import is_user_admin
-from skylee.modules.helper_funcs.misc import paginate_modules
-from skylee.modules.helper_funcs.alternate import typing_action
+from perry.modules import ALL_MODULES
+from perry.modules.purge import client
+from perry.modules.helper_funcs.chat_status import is_user_admin
+from perry.modules.helper_funcs.misc import paginate_modules
+from perry.modules.helper_funcs.alternate import typing_action
 
 
 PM_START_TEXT = f"""
-Hey there! my name is *{dispatcher.bot.first_name}*. If you have any questions on how to use me, Click Help button.
+Hey there! My name is *{dispatcher.bot.first_name}*. If you have any questions on how to use me, click the Help button.
 
 I'm here to make your group management fun and easy!
-i have lots of handy features, such as flood control, a warning system, a note keeping system, and even replies on predetermined filters.
+I have lots of handy features, such as flood control, a warning system, a note keeping system, and even replies on predetermined filters.
 
-Any issues or need help related to me? join our group [skylee support chat](https://t.me/skyleebot).
+Any issues or need help related to me?
 
-Wanna Add me to your Group? Just click the button below!
+Wanna add me to your group? Just click the button below!
 """
 
 buttons = [
     [
         InlineKeyboardButton(
-            text="Add to Group 👥", url="t.me/skylee_bot?startgroup=true"
+            text="Add to Group 👥", url="t.me/platapusbot?startgroup=true"
         ),
-        InlineKeyboardButton(text="Updates 📢", url="https://t.me/skyleebot"),
+        InlineKeyboardButton(text="Updates 📢", url="https://t.me/platapusbot"),
     ]
 ]
 
@@ -82,7 +82,7 @@ USER_SETTINGS = {}
 GDPR = []
 
 for module_name in ALL_MODULES:
-    imported_module = importlib.import_module("skylee.modules." + module_name)
+    imported_module = importlib.import_module("perry.modules." + module_name)
     if not hasattr(imported_module, "__mod_name__"):
         imported_module.__mod_name__ = imported_module.__name__
 

@@ -10,9 +10,9 @@ from spamwatch import __version__ as __sw__
 from pythonping import ping as ping3
 from telegram import ParseMode
 from telegram.ext import CommandHandler, run_async, Filters
-from skylee import dispatcher, OWNER_ID
-from skylee.modules.helper_funcs.filters import CustomFilters
-from skylee.modules.helper_funcs.alternate import typing_action
+from perry import dispatcher, OWNER_ID
+from perry.modules.helper_funcs.filters import CustomFilters
+from perry.modules.helper_funcs.alternate import typing_action
 
 
 @run_async

@@ -2,7 +2,7 @@ import threading
 
 from sqlalchemy import Column, Integer, UnicodeText
 
-from skylee.modules.sql import SESSION, BASE
+from perry.modules.sql import SESSION, BASE
 
 
 class UserInfo(BASE):
