@@ -1,5 +1,6 @@
 # Perry
 > Forked from skyleebot by starryboi.
+> Note: Please fork this project instead of using the bot, this is mainly for the use in the finf group.
 
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 [![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://GitHub.com/Naereen/)
