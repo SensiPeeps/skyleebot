@@ -64,12 +64,12 @@ RUN apt update && apt upgrade -y && \
 # Pypi package Repo upgrade
 RUN pip3 install --upgrade pip setuptools
 
-# Copy Python Requirements to /root/skyleebot
-RUN git clone https://github.com/starry69/skyleebot /root/skyleebot
-WORKDIR /root/skyleebot
+# Copy Python Requirements to /root/Perry
+RUN git clone https://github.com/marchingon12/Perry /root/Perry
+WORKDIR /root/Perry
 
-#Copy config file to /root/skyleebot/skylee
-COPY ./skylee/sample_config.py ./skylee/config.py* /root/skyleebot/skylee/
+#Copy config file to /root/Perry/perry
+COPY ./perry/sample_config.py ./perry/config.py* /root/Perry/perry/
 
 ENV PATH="/home/bot/bin:$PATH"
 
@@ -77,4 +77,4 @@ ENV PATH="/home/bot/bin:$PATH"
 RUN pip3 install -U -r requirements.txt
 
 # Starting Worker
-CMD ["python3","-m","skylee"]
+CMD ["python3","-m","perry"]
