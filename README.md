@@ -34,13 +34,13 @@ AyraHikari for weather modules and some other stuffs.
 
 RealAkito for reverse search modules.
 
-MrYacha for connections module
+MrYacha for connections module.
 
-ATechnoHazard for many stuffs
+ATechnoHazard for many stuffs.
 
-corsicanu and nunopenim for android modules
+corsicanu and nunopenim for android modules.
 
-starryboi for packing it all into Skylee
+starryboi for packing it all into Skylee and python-markdown2 fork.
 
 Any other missing credits can be seen in commits!
 
@@ -54,9 +54,24 @@ Once you've setup your database and your configuration (see below) is complete, 
 ## Setting up the bot (Read this before trying to use!)
 
 Please make sure to use python3.6, as I cannot guarantee everything will work as expected on older python versions!
-This is because markdown parsing is done by iterating through a dict, which are ordered by default in 3.6.
+This is because markdown parsing is done by iterating through a dict, which are ordered in v3.6 by default.
 
 You may be using a server where sudo and superuser rights are not permitted by the admins and can only access the server using ssh. If this is the case, you may want to use [tmux](https://github.com/tmux/tmux/wiki), so that when you disconnect from your ssh session the bot will be kept alive.
+
+Quick example:
+- Start a new session:
+
+  `tmux new-session -s perrybot`
+
+- Move into Perry/perry and start the bot:
+
+  `cd Perry/perry && python3 -m perry`
+
+- Detach session:
+
+  `Ctrl+b+d`
+
+Now Perry should be running in the background within a tmux session.
 
 ### Configuration
 
@@ -71,22 +86,22 @@ It is recommended to import sample_config and extend the Config class, as this w
 defaults set in the sample_config, hence making it easier to upgrade.
 
 An example `config.py` file could be:
-```
+```python
 from perry.sample_config import Config
 
 
 class Development(Config):
-    OWNER_ID =  894380120 # your telegram ID; easiest way is to search and start 'userinfobot' from Telegram directory
+    OWNER_ID = 894380120 # your telegram ID; easiest way is to search and start 'userinfobot' from Telegram directory
     OWNER_USERNAME = "austinsama"  # your telegram username; if you don't have one, set one
     API_KEY = "your bot api key"  # bot api token, as provided by the botfather (yes, daddy)
     SQLALCHEMY_DATABASE_URI = 'postgresql://username:password@localhost:5432/database'  # sample db credentials
-    MESSAGE_DUMP = '-1234567890' # group-chat/channel id; dumps logs as messages in dedicated room
+    MESSAGE_DUMP = -1234567890 # group-chat/channel id; dumps logs as messages in dedicated room
     USE_MESSAGE_DUMP = True # set true/false to log or not
-    SUDO_USERS = []  # List of id's for users which have sudo access to the bot.
-    LOAD = []
-    NO_LOAD = []
-    TELETHON_HASH = None # api_hash from my.telegram.org
-    TELETHON_ID = None # api_id from my.telegram.org
+    SUDO_USERS = [13130992, 29831388]  # List of id's for users which have sudo access to the bot.
+    LOAD = [] # choose which modules to load
+    NO_LOAD = [] # choose which modules to exclude
+    TELETHON_HASH = "None" # api_hash from my.telegram.org
+    TELETHON_ID = "None" # api_id from my.telegram.org
 ```
 
 ### Python dependencies
@@ -118,32 +133,35 @@ For those who do not have access to sudo and superuser rights of the server you 
 #### Postgres Setup
 In the case of Postgres, this is how you would set up a the database on a debian/ubuntu system. Other distributions may vary.
 
-- install postgresql:
+- Install postgresql:
 
-Debian/Ubuntu:\
-`sudo apt-get update && sudo apt-get install postgresql`\
-Arch Linux:\
-`sudo pacman -Syu && sudo pacman -S postgresql`
+  - Debian/Ubuntu:
+
+    `sudo apt-get update && sudo apt-get install postgresql`
+
+  - Arch Linux:
+
+    `sudo pacman -Syu && sudo pacman -S postgresql`
 
 - change to the postgres user:
 
-`sudo su - postgres`
+  `sudo su - postgres`
 
 - create a new database user (change YOUR_USER appropriately):
 
-`createuser -P -s -e YOUR_USER`
+  `createuser -P -s -e YOUR_USER`
 
 This will be followed by you needing to input your password.
 
 - create a new database table:
 
-`createdb -O YOUR_USER YOUR_DB_NAME`
+  `createdb -O YOUR_USER YOUR_DB_NAME`
 
 Change YOUR_USER and YOUR_DB_NAME appropriately.
 
 - finally:
 
-`psql YOUR_DB_NAME -h YOUR_HOST YOUR_USER`
+  `psql YOUR_DB_NAME -h YOUR_HOST YOUR_USER`
 
 This will allow you to connect to your database via your terminal.
 By default, YOUR_HOST should be 0.0.0.0:5432.
