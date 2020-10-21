@@ -6,7 +6,7 @@ FILENAME = __name__.rsplit(".", 1)[-1]
 if is_module_loaded(FILENAME):
     from telegram import Bot, ParseMode, Message
     from telegram.error import BadRequest, Unauthorized
-    from telegram.ext import CommandHandler, run_async
+    from telegram.ext import CommandHandler
     from telegram.utils.helpers import escape_markdown
 
     from perry import dispatcher, LOGGER
@@ -38,7 +38,8 @@ if is_module_loaded(FILENAME):
                 pass
             else:
                 LOGGER.warning(
-                    "%s was set as loggable, but had no return statement.", func
+                    "%s was set as loggable, but had no return statement.",
+                    func,
                 )
 
             return result
@@ -51,7 +52,8 @@ if is_module_loaded(FILENAME):
         except BadRequest as excp:
             if excp.message == "Chat not found":
                 bot.send_message(
-                    orig_chat_id, "This log channel has been deleted - unsetting."
+                    orig_chat_id,
+                    "This log channel has been deleted - unsetting.",
                 )
                 sql.stop_chat_logging(orig_chat_id)
             else:
@@ -65,7 +67,6 @@ if is_module_loaded(FILENAME):
                     + "\n\nFormatting has been disabled due to an unexpected error.",
                 )
 
-    @run_async
     @user_admin
     def logging(update, context):
         message = update.effective_message  # type: Optional[Message]
@@ -84,7 +85,6 @@ if is_module_loaded(FILENAME):
         else:
             message.reply_text("No log channel has been set for this group!")
 
-    @run_async
     @user_admin
     def setlog(update, context):
         message = update.effective_message  # type: Optional[Message]
@@ -114,8 +114,13 @@ if is_module_loaded(FILENAME):
                     ),
                 )
             except Unauthorized as excp:
-                if excp.message == "Forbidden: bot is not a member of the channel chat":
-                    context.bot.send_message(chat.id, "Successfully set log channel!")
+                if (
+                    excp.message
+                    == "Forbidden: bot is not a member of the channel chat"
+                ):
+                    context.bot.send_message(
+                        chat.id, "Successfully set log channel!"
+                    )
                 else:
                     LOGGER.exception("ERROR in setting the log channel.")
 
@@ -129,7 +134,6 @@ if is_module_loaded(FILENAME):
                 " - forward the /setlog to the group\n"
             )
 
-    @run_async
     @user_admin
     def unsetlog(update, context):
         message = update.effective_message  # type: Optional[Message]
@@ -138,7 +142,8 @@ if is_module_loaded(FILENAME):
         log_channel = sql.stop_chat_logging(chat.id)
         if log_channel:
             context.bot.send_message(
-                log_channel, "Channel has been unlinked from {}".format(chat.title)
+                log_channel,
+                "Channel has been unlinked from {}".format(chat.title),
             )
             message.reply_text("Log channel has been un-set.")
 

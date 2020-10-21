@@ -19,7 +19,7 @@ from telegram import (
     TelegramError,
 )
 
-from telegram.ext import CommandHandler, run_async, Filters
+from telegram.ext import CommandHandler, Filters
 from telegram.utils.helpers import escape_markdown, mention_html
 from telegram.error import BadRequest
 
@@ -39,7 +39,6 @@ from perry.modules.helper_funcs.filters import CustomFilters
 from perry.modules.helper_funcs.alternate import typing_action, send_action
 
 
-@run_async
 @typing_action
 def get_id(update, context):
     args = context.args
@@ -63,14 +62,17 @@ def get_id(update, context):
         else:
             user = context.bot.get_chat(user_id)
             update.effective_message.reply_text(
-                "{}'s id is `{}`.".format(escape_markdown(user.first_name), user.id),
+                "{}'s id is `{}`.".format(
+                    escape_markdown(user.first_name), user.id
+                ),
                 parse_mode=ParseMode.MARKDOWN,
             )
     else:
         chat = update.effective_chat  # type: Optional[Chat]
         if chat.type == "private":
             update.effective_message.reply_text(
-                "Your id is `{}`.".format(chat.id), parse_mode=ParseMode.MARKDOWN
+                "Your id is `{}`.".format(chat.id),
+                parse_mode=ParseMode.MARKDOWN,
             )
 
         else:
@@ -80,7 +82,6 @@ def get_id(update, context):
             )
 
 
-@run_async
 def info(update, context):
     args = context.args
     msg = update.effective_message  # type: Optional[Message]
@@ -191,12 +192,13 @@ def info(update, context):
         )
     except IndexError:
         context.bot.sendChatAction(chat.id, "typing")
-        msg.reply_text(text, parse_mode=ParseMode.HTML, disable_web_page_preview=True)
+        msg.reply_text(
+            text, parse_mode=ParseMode.HTML, disable_web_page_preview=True
+        )
     finally:
         del_msg.delete()
 
 
-@run_async
 @typing_action
 def echo(update, context):
     args = update.effective_message.text.split(None, 1)
@@ -208,7 +210,6 @@ def echo(update, context):
     message.delete()
 
 
-@run_async
 @typing_action
 def gdpr(update, context):
     update.effective_message.reply_text("Deleting identifiable data...")
@@ -256,10 +257,11 @@ Keep in mind that your message <b>MUST</b> contain some text other than just a b
 )
 
 
-@run_async
 @typing_action
 def markdown_help(update, context):
-    update.effective_message.reply_text(MARKDOWN_HELP, parse_mode=ParseMode.HTML)
+    update.effective_message.reply_text(
+        MARKDOWN_HELP, parse_mode=ParseMode.HTML
+    )
     update.effective_message.reply_text(
         "Try forwarding the following message to me, and you'll see!"
     )
@@ -270,7 +272,6 @@ def markdown_help(update, context):
     )
 
 
-@run_async
 @typing_action
 def wiki(update, context):
     kueri = re.split(pattern="wiki", string=update.effective_message.text)
@@ -284,7 +285,8 @@ def wiki(update, context):
                 [
                     [
                         InlineKeyboardButton(
-                            text="🔧 More Info...", url=wikipedia.page(kueri).url
+                            text="🔧 More Info...",
+                            url=wikipedia.page(kueri).url,
                         )
                     ]
                 ]
@@ -305,7 +307,6 @@ def wiki(update, context):
             )
 
 
-@run_async
 @typing_action
 def ud(update, context):
     msg = update.effective_message
@@ -318,13 +319,15 @@ def ud(update, context):
         msg.reply_text("Fek off bitch!")
         return
     try:
-        results = get(f"http://api.urbandictionary.com/v0/define?term={text}").json()
-        reply_text = f'Word: {text}\nDefinition: {results["list"][0]["definition"]}'
+        results = get(
+            f"http://api.urbandictionary.com/v0/define?term={text}"
+        ).json()
+        reply_text = (
+            f'Word: {text}\nDefinition: {results["list"][0]["definition"]}'
+        )
         reply_text += f'\n\nExample: {results["list"][0]["example"]}'
     except IndexError:
-        reply_text = (
-            f"Word: {text}\nResults: Sorry could not find any matching results!"
-        )
+        reply_text = f"Word: {text}\nResults: Sorry could not find any matching results!"
     ignore_chars = "[]"
     reply = reply_text
     for chars in ignore_chars:
@@ -337,7 +340,6 @@ def ud(update, context):
         msg.reply_text(f"Error! {err.message}")
 
 
-@run_async
 @typing_action
 def src(update, context):
     update.effective_message.reply_text(
@@ -347,7 +349,6 @@ def src(update, context):
     )
 
 
-@run_async
 @send_action(ChatAction.UPLOAD_PHOTO)
 def wall(update, context):
     chat_id = update.effective_chat.id
@@ -394,7 +395,6 @@ def wall(update, context):
                 )
 
 
-@run_async
 @typing_action
 def getlink(update, context):
     args = context.args
@@ -413,7 +413,9 @@ def getlink(update, context):
                 links += str(chat_id) + ":\n" + invitelink + "\n"
             else:
                 links += (
-                    str(chat_id) + ":\nI don't have access to the invite link." + "\n"
+                    str(chat_id)
+                    + ":\nI don't have access to the invite link."
+                    + "\n"
                 )
         except BadRequest as excp:
             links += str(chat_id) + ":\n" + excp.message + "\n"
@@ -423,7 +425,6 @@ def getlink(update, context):
     message.reply_text(links)
 
 
-@run_async
 @send_action(ChatAction.UPLOAD_PHOTO)
 def rmemes(update, context):
     msg = update.effective_message
@@ -475,7 +476,6 @@ def rmemes(update, context):
         return msg.reply_text(f"Error! {excp.message}")
 
 
-@run_async
 def staff_ids(update, context):
     sfile = "List of SUDO & SUPPORT users:\n"
     sfile += f"× SUDO USER IDs; {SUDO_USERS}\n"
@@ -489,7 +489,6 @@ def staff_ids(update, context):
         )
 
 
-@run_async
 def stats(update, context):
     update.effective_message.reply_text(
         "Current stats:\n" + "\n".join([mod.__stats__() for mod in STATS])
@@ -516,7 +515,9 @@ __mod_name__ = "Miscs"
 ID_HANDLER = DisableAbleCommandHandler("id", get_id, pass_args=True)
 INFO_HANDLER = DisableAbleCommandHandler("info", info, pass_args=True)
 ECHO_HANDLER = CommandHandler("echo", echo, filters=CustomFilters.sudo_filter)
-MD_HELP_HANDLER = CommandHandler("markdownhelp", markdown_help, filters=Filters.private)
+MD_HELP_HANDLER = CommandHandler(
+    "markdownhelp", markdown_help, filters=Filters.private
+)
 STATS_HANDLER = CommandHandler("stats", stats, filters=Filters.user(OWNER_ID))
 GDPR_HANDLER = CommandHandler("gdpr", gdpr, filters=Filters.private)
 WIKI_HANDLER = DisableAbleCommandHandler("wiki", wiki)

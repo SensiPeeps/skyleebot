@@ -3,7 +3,6 @@ from bs4 import BeautifulSoup
 from requests import get
 from telegram import ParseMode
 from telegram.error import BadRequest
-from telegram.ext import run_async
 
 from perry import dispatcher
 from perry.modules.disable import DisableAbleCommandHandler
@@ -13,7 +12,6 @@ GITHUB = "https://github.com"
 DEVICES_DATA = "https://raw.githubusercontent.com/androidtrackers/certified-android-devices/master/by_device.json"
 
 
-@run_async
 @typing_action
 def magisk(update, context):
     url = "https://raw.githubusercontent.com/topjohnwu/magisk_files/"
@@ -49,12 +47,13 @@ def magisk(update, context):
             return
 
 
-@run_async
 @typing_action
 def device(update, context):
     args = context.args
     if len(args) == 0:
-        reply = "No codename provided, write a codename for fetching informations."
+        reply = (
+            "No codename provided, write a codename for fetching informations."
+        )
         del_msg = update.effective_message.reply_text(
             "{}".format(reply),
             parse_mode=ParseMode.MARKDOWN,
@@ -100,16 +99,19 @@ def device(update, context):
             ):
                 return
     update.message.reply_text(
-        "{}".format(reply), parse_mode=ParseMode.HTML, disable_web_page_preview=True
+        "{}".format(reply),
+        parse_mode=ParseMode.HTML,
+        disable_web_page_preview=True,
     )
 
 
-@run_async
 @typing_action
 def twrp(update, context):
     args = context.args
     if len(args) == 0:
-        reply = "No codename provided, write a codename for fetching informations."
+        reply = (
+            "No codename provided, write a codename for fetching informations."
+        )
         del_msg = update.effective_message.reply_text(
             "{}".format(reply),
             parse_mode=ParseMode.MARKDOWN,
@@ -146,7 +148,9 @@ def twrp(update, context):
     else:
         reply = f"*Latest Official TWRP for {device}*\n"
         db = get(DEVICES_DATA).json()
-        newdevice = device.strip("lte") if device.startswith("beyond") else device
+        newdevice = (
+            device.strip("lte") if device.startswith("beyond") else device
+        )
         try:
             brand = db[newdevice][0]["brand"]
             name = db[newdevice][0]["name"]

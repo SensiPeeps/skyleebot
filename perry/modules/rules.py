@@ -3,7 +3,7 @@ from typing import Optional
 from telegram import Message, User
 from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.error import BadRequest
-from telegram.ext import CommandHandler, run_async, Filters
+from telegram.ext import CommandHandler, Filters
 from telegram.utils.helpers import escape_markdown
 
 import perry.modules.sql.rules_sql as sql
@@ -13,7 +13,6 @@ from perry.modules.helper_funcs.string_handling import markdown_parser
 from perry.modules.helper_funcs.alternate import typing_action
 
 
-@run_async
 @typing_action
 def get_rules(update, context):
     chat_id = update.effective_chat.id
@@ -38,7 +37,9 @@ def send_rules(update, chat_id, from_pm=False):
             raise
 
     rules = sql.get_rules(chat_id)
-    text = "The rules for *{}* are:\n\n{}".format(escape_markdown(chat.title), rules)
+    text = "The rules for *{}* are:\n\n{}".format(
+        escape_markdown(chat.title), rules
+    )
 
     if from_pm and rules:
         bot.send_message(user.id, text, parse_mode=ParseMode.MARKDOWN)
@@ -56,7 +57,9 @@ def send_rules(update, chat_id, from_pm=False):
                     [
                         InlineKeyboardButton(
                             text="Rules",
-                            url="t.me/{}?start={}".format(bot.username, chat_id),
+                            url="t.me/{}?start={}".format(
+                                bot.username, chat_id
+                            ),
                         )
                     ]
                 ]
@@ -69,26 +72,30 @@ def send_rules(update, chat_id, from_pm=False):
         )
 
 
-@run_async
 @user_admin
 @typing_action
 def set_rules(update, context):
     chat_id = update.effective_chat.id
     msg = update.effective_message  # type: Optional[Message]
     raw_text = msg.text
-    args = raw_text.split(None, 1)  # use python's maxsplit to separate cmd and args
+    args = raw_text.split(
+        None, 1
+    )  # use python's maxsplit to separate cmd and args
     if len(args) == 2:
         txt = args[1]
-        offset = len(txt) - len(raw_text)  # set correct offset relative to command
+        offset = len(txt) - len(
+            raw_text
+        )  # set correct offset relative to command
         markdown_rules = markdown_parser(
             txt, entities=msg.parse_entities(), offset=offset
         )
 
         sql.set_rules(chat_id, markdown_rules)
-        update.effective_message.reply_text("Successfully set rules for this group.")
+        update.effective_message.reply_text(
+            "Successfully set rules for this group."
+        )
 
 
-@run_async
 @user_admin
 @typing_action
 def clear_rules(update, context):
@@ -112,7 +119,9 @@ def __migrate__(old_chat_id, new_chat_id):
 
 
 def __chat_settings__(chat_id, user_id):
-    return "This chat has had it's rules set: `{}`".format(bool(sql.get_rules(chat_id)))
+    return "This chat has had it's rules set: `{}`".format(
+        bool(sql.get_rules(chat_id))
+    )
 
 
 __help__ = """
@@ -128,8 +137,12 @@ Every chat works with different rules; this module will help make those rules cl
 __mod_name__ = "Rules"
 
 GET_RULES_HANDLER = CommandHandler("rules", get_rules, filters=Filters.group)
-SET_RULES_HANDLER = CommandHandler("setrules", set_rules, filters=Filters.group)
-RESET_RULES_HANDLER = CommandHandler("clearrules", clear_rules, filters=Filters.group)
+SET_RULES_HANDLER = CommandHandler(
+    "setrules", set_rules, filters=Filters.group
+)
+RESET_RULES_HANDLER = CommandHandler(
+    "clearrules", clear_rules, filters=Filters.group
+)
 
 dispatcher.add_handler(GET_RULES_HANDLER)
 dispatcher.add_handler(SET_RULES_HANDLER)

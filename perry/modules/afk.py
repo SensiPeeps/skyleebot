@@ -4,10 +4,13 @@ import random
 from telegram import Message, User
 from telegram import MessageEntity, ParseMode
 from telegram.error import BadRequest
-from telegram.ext import Filters, MessageHandler, run_async
+from telegram.ext import Filters, MessageHandler
 
 from perry import dispatcher
-from perry.modules.disable import DisableAbleCommandHandler, DisableAbleMessageHandler
+from perry.modules.disable import (
+    DisableAbleCommandHandler,
+    DisableAbleMessageHandler,
+)
 from perry.modules.sql import afk_sql as sql
 from perry.modules.users import get_user_id
 
@@ -18,7 +21,6 @@ AFK_GROUP = 7
 AFK_REPLY_GROUP = 8
 
 
-@run_async
 def afk(update, context):
     args = update.effective_message.text.split(None, 1)
     if len(args) >= 2:
@@ -28,10 +30,11 @@ def afk(update, context):
 
     sql.set_afk(update.effective_user.id, reason)
     afkstr = random.choice(fun.AFK)
-    update.effective_message.reply_text(afkstr.format(update.effective_user.first_name))
+    update.effective_message.reply_text(
+        afkstr.format(update.effective_user.first_name)
+    )
 
 
-@run_async
 def no_longer_afk(update, context):
     user = update.effective_user  # type: Optional[User]
 
@@ -44,7 +47,6 @@ def no_longer_afk(update, context):
         update.effective_message.reply_text(noafkstr.format(user.first_name))
 
 
-@run_async
 def reply_afk(update, context):
     message = update.effective_message  # type: Optional[Message]
 
@@ -83,7 +85,9 @@ def reply_afk(update, context):
                     else:
                         res = f"<b>{fst_name}</b> is away from keyboard! says it's because of \n{reason}"
                     send_message(
-                        update.effective_message, res, parse_mode=ParseMode.HTML
+                        update.effective_message,
+                        res,
+                        parse_mode=ParseMode.HTML,
                     )
 
 

@@ -28,7 +28,9 @@ async def purge(event):
 
     msg = await event.get_reply_message()
     if not msg:
-        await event.reply("Reply to a message to select where to start purging from.")
+        await event.reply(
+            "Reply to a message to select where to start purging from."
+        )
         return
 
     try:

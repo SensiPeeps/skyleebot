@@ -7,7 +7,6 @@ from telegram.error import BadRequest, Unauthorized
 from telegram.ext import (
     CommandHandler,
     MessageHandler,
-    run_async,
     Filters,
     CallbackQueryHandler,
 )
@@ -22,7 +21,6 @@ from perry.modules.sql import reporting_sql as sql
 REPORT_GROUP = 5
 
 
-@run_async
 @user_admin
 @typing_action
 def report_setting(update, context):
@@ -40,7 +38,9 @@ def report_setting(update, context):
 
             elif args[0] in ("no", "off"):
                 sql.set_user_setting(chat.id, False)
-                msg.reply_text("Turned off reporting! You wont get any reports.")
+                msg.reply_text(
+                    "Turned off reporting! You wont get any reports."
+                )
         else:
             msg.reply_text(
                 "Your current report preference is: `{}`".format(
@@ -72,7 +72,6 @@ def report_setting(update, context):
             )
 
 
-@run_async
 @user_not_admin
 @loggable
 @typing_action
@@ -82,7 +81,9 @@ def report(update, context) -> str:
     user = update.effective_user  # type: Optional[User]
 
     if chat and message.reply_to_message and sql.chat_should_report(chat.id):
-        reported_user = message.reply_to_message.from_user  # type: Optional[User]
+        reported_user = (
+            message.reply_to_message.from_user
+        )  # type: Optional[User]
         chat_name = chat.title or chat.first or chat.username
         admin_list = chat.get_administrators()
         messages = update.effective_message
@@ -170,7 +171,9 @@ def report(update, context) -> str:
                             "Exception while reporting user " + excp.message
                         )
 
-        message.reply_to_message.reply_text(reported, parse_mode=ParseMode.HTML)
+        message.reply_to_message.reply_text(
+            reported, parse_mode=ParseMode.HTML
+        )
         return msg
 
     return ""
@@ -258,7 +261,9 @@ admins don't need to report, or be reported!
 REPORT_HANDLER = CommandHandler("report", report, filters=Filters.group)
 SETTING_HANDLER = CommandHandler("reports", report_setting, pass_args=True)
 ADMIN_REPORT_HANDLER = MessageHandler(Filters.regex("(?i)@admin(s)?"), report)
-REPORT_BUTTON_HANDLER = CallbackQueryHandler(report_buttons, pattern=r"report_")
+REPORT_BUTTON_HANDLER = CallbackQueryHandler(
+    report_buttons, pattern=r"report_"
+)
 
 dispatcher.add_handler(REPORT_HANDLER, REPORT_GROUP)
 dispatcher.add_handler(ADMIN_REPORT_HANDLER, REPORT_GROUP)

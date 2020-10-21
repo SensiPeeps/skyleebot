@@ -15,9 +15,7 @@ class Config(object):
 
     # REQUIRED
     API_KEY = ""
-    OWNER_ID = (
-        ""  # If you dont know, run the bot and do /id in your private chat with it
-    )
+    OWNER_ID = ""  # If you dont know, run the bot and do /id in your private chat with it
     OWNER_USERNAME = ""
     TELETHON_HASH = None  # for purge stuffs
     TELETHON_ID = None
@@ -49,11 +47,14 @@ class Config(object):
     STRICT_GBAN = True
     WORKERS = 8  # Number of subthreads to use. This is the recommended amount - see for yourself what works best!
     BAN_STICKER = None  # banhammer marie sticker
-    ALLOW_EXCL = False  # DEPRECATED, USE BELOW INSTEAD! Allow ! commands as well as /
+    ALLOW_EXCL = (
+        False  # DEPRECATED, USE BELOW INSTEAD! Allow ! commands as well as /
+    )
     CUSTOM_CMD = False  # Set to ('/', '!') or whatever to enable it, like ALLOW_EXCL but with more custom handler!
     API_OPENWEATHER = None  # OpenWeather API
     SPAMWATCH_API = None  # Your SpamWatch token
     WALL_API = None
+
 
 class Production(Config):
     LOGGER = False

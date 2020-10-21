@@ -3,7 +3,7 @@ from typing import Optional, List
 
 from telegram import Message, Chat, User, ParseMode, ChatPermissions
 from telegram.error import BadRequest
-from telegram.ext import Filters, MessageHandler, CommandHandler, run_async
+from telegram.ext import Filters, MessageHandler, CommandHandler
 from telegram.utils.helpers import mention_html
 
 from perry import dispatcher
@@ -18,7 +18,6 @@ from perry.modules.helper_funcs.alternate import send_message, typing_action
 FLOOD_GROUP = 3
 
 
-@run_async
 @loggable
 def check_flood(update, context) -> str:
     user = update.effective_user  # type: Optional[User]
@@ -50,7 +49,9 @@ def check_flood(update, context) -> str:
             tag = "KICKED"
         elif getmode == 3:
             context.bot.restrict_chat_member(
-                chat.id, user.id, permissions=ChatPermissions(can_send_messages=False)
+                chat.id,
+                user.id,
+                permissions=ChatPermissions(can_send_messages=False),
             )
             execstrings = "Muted"
             tag = "MUTED"
@@ -80,7 +81,9 @@ def check_flood(update, context) -> str:
             "\n#{}"
             "\n<b>User:</b> {}"
             "\nFlooded the group.".format(
-                tag, html.escape(chat.title), mention_html(user.id, user.first_name)
+                tag,
+                html.escape(chat.title),
+                mention_html(user.id, user.first_name),
             )
         )
 
@@ -98,7 +101,6 @@ def check_flood(update, context) -> str:
         )
 
 
-@run_async
 @user_admin
 @loggable
 @typing_action
@@ -149,7 +151,8 @@ def set_flood(update, context) -> str:
                     "\n#SETFLOOD"
                     "\n<b>Admin:</b> {}"
                     "\nDisable antiflood.".format(
-                        html.escape(chat_name), mention_html(user.id, user.first_name)
+                        html.escape(chat_name),
+                        mention_html(user.id, user.first_name),
                     )
                 )
 
@@ -170,9 +173,13 @@ def set_flood(update, context) -> str:
                     )
                 else:
                     text = message.reply_text(
-                        "Successfully updated anti-flood limit to {}!".format(amount)
+                        "Successfully updated anti-flood limit to {}!".format(
+                            amount
+                        )
                     )
-                send_message(update.effective_message, text, parse_mode="markdown")
+                send_message(
+                    update.effective_message, text, parse_mode="markdown"
+                )
                 return (
                     "<b>{}:</b>"
                     "\n#SETFLOOD"
@@ -185,7 +192,9 @@ def set_flood(update, context) -> str:
                 )
 
         else:
-            message.reply_text("Invalid argument please use a number, 'off' or 'no'")
+            message.reply_text(
+                "Invalid argument please use a number, 'off' or 'no'"
+            )
     else:
         message.reply_text(
             (
@@ -196,7 +205,6 @@ def set_flood(update, context) -> str:
     return ""
 
 
-@run_async
 @typing_action
 def flood(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
@@ -242,7 +250,6 @@ def flood(update, context):
         send_message(update.effective_message, text, parse_mode="markdown")
 
 
-@run_async
 @user_admin
 @loggable
 @typing_action
@@ -283,7 +290,9 @@ def set_flood_mode(update, context):
                 teks = """It looks like you tried to set time value for antiflood but you didn't specified time; Try, `/setfloodmode tban <timevalue>`.
 
 Examples of time value: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks."""
-                send_message(update.effective_message, teks, parse_mode="markdown")
+                send_message(
+                    update.effective_message, teks, parse_mode="markdown"
+                )
                 return
             settypeflood = "tban for {}".format(args[1])
             sql.set_flood_strength(chat_id, 4, str(args[1]))
@@ -292,13 +301,16 @@ Examples of time value: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks.
                 teks = """It looks like you tried to set time value for antiflood but you didn't specified time; Try, `/setfloodmode tmute <timevalue>`.
 
 Examples of time value: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks."""
-                send_message(update.effective_message, teks, parse_mode="markdown")
+                send_message(
+                    update.effective_message, teks, parse_mode="markdown"
+                )
                 return
             settypeflood = "tmute for {}".format(args[1])
             sql.set_flood_strength(chat_id, 5, str(args[1]))
         else:
             send_message(
-                update.effective_message, "I only understand ban/kick/mute/tban/tmute!"
+                update.effective_message,
+                "I only understand ban/kick/mute/tban/tmute!",
             )
             return
         if conn:
@@ -347,7 +359,9 @@ Examples of time value: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks.
                     settypeflood
                 )
             )
-        send_message(update.effective_message, text, parse_mode=ParseMode.MARKDOWN)
+        send_message(
+            update.effective_message, text, parse_mode=ParseMode.MARKDOWN
+        )
     return ""
 
 
