@@ -1,13 +1,12 @@
-# Perry
-> Forked from skyleebot by starryboi.
-> Note: Please fork this project instead of using the bot, this is mainly for the use in the finf group.
+# Perry (testing)
+> This is where we pre-release Perry. This branch is mainly used for testing Perry for stability and error checks before final commits are merged to the master branch.
 
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 [![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://GitHub.com/Naereen/)
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/ac5b62f098ca476098e3e4e92b9a149c)](https://www.codacy.com/manual/marchingon12/Perry?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=marchingon12/Perry&amp;utm_campaign=Badge_Grade)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com)
 [![Actively Maintained](https://img.shields.io/badge/Maintenance%20Level-Actively%20Maintained-green.svg)](https://gist.github.com/cheerfulstoic/d107229326a01ff0f333a1d3476e068d)
 
 ![logo](https://telegra.ph/file/39c9eb2839d62825da531.png)
@@ -15,8 +14,8 @@
 
 A modular Telegram Python bot running on python3 with an sqlalchemy database.
 
-Starting of as a simple group management bot with multiple admin features, it has evolved, becoming extremely modular and 
-simple to use. Note that this project uses well-known Telegram-bot of it's time @BanhammerMarie_bot from Paul Larson as it's base. 
+Starting of as a simple group management bot with multiple admin features, it has evolved, becoming extremely modular and
+simple to use. Note that this project uses well-known Telegram-bot of it's time @BanhammerMarie_bot from Paul Larson as it's base.
 This bot is now used mainly for the finf group.
 
 Can be found on Telegram as [Perry](https://t.me/PlatapusBot).
@@ -78,11 +77,11 @@ Now Perry should be running in the background within a tmux session.
 There are two possible ways of configuring your bot: a config.py file, or ENV variables.
 
 The prefered version is to use a `config.py` file, as it makes it easier to see all your settings grouped together.
-This file should be placed in your `perry` folder, alongside the `__main__.py` file . 
-This is where your bot token will be loaded from, as well as your database URI (if you're using a database), and most of 
+This file should be placed in your `perry` folder, alongside the `__main__.py` file .
+This is where your bot token will be loaded from, as well as your database URI (if you're using a database), and most of
 your other settings.
 
-It is recommended to import sample_config and extend the Config class, as this will ensure your config contains all 
+It is recommended to import sample_config and extend the Config class, as this will ensure your config contains all
 defaults set in the sample_config, hence making it easier to upgrade.
 
 An example `config.py` file could be:
@@ -136,11 +135,19 @@ In the case of Postgres, this is how you would set up a the database on a debian
 - Install postgresql:
 
   - Debian/Ubuntu:
+<<<<<<< HEAD
 
     `sudo apt-get update && sudo apt-get install postgresql`
 
   - Arch Linux:
 
+=======
+
+    `sudo apt-get update && sudo apt-get install postgresql`
+
+  - Arch Linux:
+
+>>>>>>> f6f615e7e35eb6db9fa0c1987593a61c31225e2c
     `sudo pacman -Syu && sudo pacman -S postgresql`
 
 - change to the postgres user:
@@ -204,9 +211,8 @@ commands will allow the bot to load it and add the documentation for
 your module to the `/help` command. Setting the `__mod_name__` variable will also allow you to use a nicer, user
 friendly name for a module.
 
-The `__migrate__()` function is used for migrating chats - when a chat is upgraded to a supergroup, the ID changes, so 
+The `__migrate__()` function is used for migrating chats - when a chat is upgraded to a supergroup, the ID changes, so
 it is necessary to migrate it in the db.
 
-The `__stats__()` function is for retrieving module statistics, eg number of users, number of chats. This is accessed 
+The `__stats__()` function is for retrieving module statistics, eg number of users, number of chats. This is accessed
 through the `/stats` command, which is only available to the bot owner.
-
