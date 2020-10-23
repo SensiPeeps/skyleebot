@@ -135,19 +135,11 @@ In the case of Postgres, this is how you would set up a the database on a debian
 - Install postgresql:
 
   - Debian/Ubuntu:
-<<<<<<< HEAD
 
     `sudo apt-get update && sudo apt-get install postgresql`
 
   - Arch Linux:
 
-=======
-
-    `sudo apt-get update && sudo apt-get install postgresql`
-
-  - Arch Linux:
-
->>>>>>> f6f615e7e35eb6db9fa0c1987593a61c31225e2c
     `sudo pacman -Syu && sudo pacman -S postgresql`
 
 - change to the postgres user:
