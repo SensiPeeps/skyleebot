@@ -4,6 +4,7 @@ import wikipedia
 import subprocess, sys, os
 from typing import Optional, List
 from requests import get
+from html import escape
 
 from io import BytesIO
 from random import randint
@@ -512,6 +513,7 @@ def pyeval(update, context):
                 msg.chat.id,
                 "<pre>" + escape(result) + "</pre>",
                 reply_to_message_id=msg.message_id,
+                parse_mode=ParseMode.HTML,
             )
         except Exception as excp:
             if str(excp.message) == "Message must be non-empty":
@@ -576,7 +578,7 @@ An "odds and ends" module for small, simple commands which don't really fit anyw
  × /reverse: Reverse searches image or stickers on google.
  × /gdpr: Deletes your information from the bot's database. Private chats only.
  × /markdownhelp: Quick summary of how markdown works in telegram - can only be called in private chats.
- × /exec: Enables the OWNER to execute python code using the bot.
+ × /exec: Enables the OWNER and SUDO_USERS to execute python code using the bot.
  × /shell: Enables the OWNER to run bash commands within the server using the bot.
 """
 
@@ -625,7 +627,7 @@ SHELL_HANDLER = CommandHandler(
     "shell", shell, filters=Filters.user(OWNER_ID), run_async=True
 )
 PYEVAL_HANDLER = CommandHandler(
-    "exec", pyeval, filters=Filters.user(OWNER_ID), run_async=True
+    "exec", pyeval, filters=CustomFilters.sudo_filter, run_async=True
 )
 
 dispatcher.add_handler(WALLPAPER_HANDLER)
