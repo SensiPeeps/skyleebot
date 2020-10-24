@@ -539,7 +539,10 @@ def shell(update, context):
         )
         stdout, stderr = res.communicate()
         result = str(stdout.decode().strip()) + str(stderr.decode().strip())
-        rep.edit_text("<pre>" + escape(result) + "</pre>")
+        rep.edit_text(
+            "<pre>" + escape(result) + "</pre>",
+            parse_mode=ParseMode.HTML
+        )
     except Exception as excp:
         if str(excp.message) == "Message must be non-empty":
             return msg.edit_text("None")
