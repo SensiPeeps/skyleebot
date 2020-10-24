@@ -568,7 +568,10 @@ def stats(update, context):
     )
 
 
-# /ip is for private use
+# /ip: Enables OWNER to get IP Address of hosted server.
+# /exec: Enables the OWNER and SUDO_USERS to execute python code using the bot.
+# /shell: Enables the OWNER to run bash commands within the server using the bot.
+# /echo: For SUDO_USERS, Perry will write and replace your message.
 __help__ = """
 An "odds and ends" module for small, simple commands which don't really fit anywhere
 
@@ -581,8 +584,6 @@ An "odds and ends" module for small, simple commands which don't really fit anyw
  × /reverse: Reverse searches image or stickers on google.
  × /gdpr: Deletes your information from the bot's database. Private chats only.
  × /markdownhelp: Quick summary of how markdown works in telegram - can only be called in private chats.
- × /exec: Enables the OWNER and SUDO_USERS to execute python code using the bot.
- × /shell: Enables the OWNER to run bash commands within the server using the bot.
 """
 
 __mod_name__ = "Miscs"
