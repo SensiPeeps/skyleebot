@@ -1,6 +1,7 @@
 import html
 import random, re
 import wikipedia
+import subprocess, sys, os
 from typing import Optional, List
 from requests import get
 
