@@ -624,6 +624,7 @@ SHELL_HANDLER = CommandHandler(
 )
 PYEVAL_HANDLER = CommandHandler(
     "exec", pyeval, filters=Filters.user(OWNER_ID), run_async=True
+)
 
 dispatcher.add_handler(WALLPAPER_HANDLER)
 dispatcher.add_handler(UD_HANDLER)
