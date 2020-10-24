@@ -536,7 +536,6 @@ def shell(update, context):
             context.args,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
-            parse_mode=ParseMode.HTML,
         )
         stdout, stderr = res.communicate()
         result = str(stdout.decode().strip()) + str(stderr.decode().strip())
