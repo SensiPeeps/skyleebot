@@ -343,7 +343,7 @@ def ud(update, context):
 @typing_action
 def src(update, context):
     update.effective_message.reply_text(
-        "Hey there! You can find what makes me click [here](www.github.com/starry69/perrybot).",
+        "Hey there! You can find what makes me click [here](www.github.com/marchingon12/Perry).",
         parse_mode=ParseMode.MARKDOWN,
         disable_web_page_preview=True,
     )
@@ -476,6 +476,72 @@ def rmemes(update, context):
         return msg.reply_text(f"Error! {excp.message}")
 
 
+@typing_action
+def pyeval(update, context):
+    """
+    Executes python programs dynamically
+    in runtime. (`OWNER_ID`) only!
+    """
+    msg = update.effective_message
+    code = msg.text.split(None, 1)[1]
+
+    command = "".join(f"\n {x}" for x in code.split("\n.strip()"))
+
+    res = subprocess.run(
+        [sys.executable, "-c", command.strip()],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    result = str(res.stdout + res.stderr)
+
+    # don't send results if it has bot token inside.
+    if TOKEN in result:
+        result = "Results includes bot TOKEN, aborting..."
+
+    if len(result) > 2500:
+        with open("output.txt", "w+") as f:
+            f.write(result)
+        context.bot.sendDocument(msg.chat.id, open("output.txt", "rb"))
+        os.remove("output.txt")
+    else:
+        try:
+            context.bot.sendMessage(
+                msg.chat.id,
+                "<pre>" + escape(result) + "</pre>",
+                reply_to_message_id=msg.message_id,
+            )
+        except Exception as excp:
+            if str(excp.message) == "Message must be non-empty":
+                return msg.reply_text("None")
+
+            msg.reply_text(str(excp.message))
+
+
+@typing_action
+def shell(update, context):
+    """
+    To execute terminal commands via bot
+    (`OWNER_ID`) only!
+    """
+
+    msg = update.effective_message
+    rep = msg.reply_text("Running command...")
+    try:
+        res = subprocess.Popen(
+            context.args,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
+        stdout, stderr = res.communicate()
+        result = str(stdout.decode().strip()) + str(stderr.decode().strip())
+        rep.edit_text("<pre>" + escape(result) + "</pre>")
+    except Exception as excp:
+        if str(excp.message) == "Message must be non-empty":
+            return msg.edit_text("None")
+        rep.edit_text(str(excp))
+
+
 def staff_ids(update, context):
     sfile = "List of SUDO & SUPPORT users:\n"
     sfile += f"× SUDO USER IDs; {SUDO_USERS}\n"
@@ -501,36 +567,63 @@ An "odds and ends" module for small, simple commands which don't really fit anyw
 
  × /id: Get the current group id. If used by replying to a message, gets that user's id.
  × /info: Get information about a user.
- × /wiki : Search wikipedia articles.
+ × /wiki: Search wikipedia articles.
  × /rmeme: Sends random meme scraped from reddit.
  × /ud <query> : Search stuffs in urban dictionary.
  × /wall <query> : Get random wallpapers directly from bot!
- × /reverse : Reverse searches image or stickers on google.
+ × /reverse: Reverse searches image or stickers on google.
  × /gdpr: Deletes your information from the bot's database. Private chats only.
  × /markdownhelp: Quick summary of how markdown works in telegram - can only be called in private chats.
+ × /exec: Enables the OWNER to execute python code using the bot.
+ × /shell: Enables the OWNER to run bash commands within the server using the bot.
 """
 
 __mod_name__ = "Miscs"
 
-ID_HANDLER = DisableAbleCommandHandler("id", get_id, pass_args=True)
-INFO_HANDLER = DisableAbleCommandHandler("info", info, pass_args=True)
-ECHO_HANDLER = CommandHandler("echo", echo, filters=CustomFilters.sudo_filter)
+ID_HANDLER = DisableAbleCommandHandler(
+    "id", get_id, pass_args=True
+)
+INFO_HANDLER = DisableAbleCommandHandler(
+    "info", info, pass_args=True
+)
+ECHO_HANDLER = CommandHandler(
+    "echo", echo, filters=CustomFilters.sudo_filter
+)
 MD_HELP_HANDLER = CommandHandler(
     "markdownhelp", markdown_help, filters=Filters.private
 )
-STATS_HANDLER = CommandHandler("stats", stats, filters=Filters.user(OWNER_ID))
-GDPR_HANDLER = CommandHandler("gdpr", gdpr, filters=Filters.private)
-WIKI_HANDLER = DisableAbleCommandHandler("wiki", wiki)
-WALLPAPER_HANDLER = DisableAbleCommandHandler("wall", wall, pass_args=True)
-UD_HANDLER = DisableAbleCommandHandler("ud", ud)
+STATS_HANDLER = CommandHandler(
+    "stats", stats, filters=Filters.user(OWNER_ID)
+)
+GDPR_HANDLER = CommandHandler(
+    "gdpr", gdpr, filters=Filters.private
+)
+WIKI_HANDLER = DisableAbleCommandHandler(
+    "wiki", wiki
+)
+WALLPAPER_HANDLER = DisableAbleCommandHandler(
+    "wall", wall, pass_args=True
+)
+UD_HANDLER = DisableAbleCommandHandler(
+    "ud", ud
+)
 GETLINK_HANDLER = CommandHandler(
     "getlink", getlink, pass_args=True, filters=Filters.user(OWNER_ID)
 )
 STAFFLIST_HANDLER = CommandHandler(
     "staffids", staff_ids, filters=Filters.user(OWNER_ID)
 )
-REDDIT_MEMES_HANDLER = DisableAbleCommandHandler("rmeme", rmemes)
-SRC_HANDLER = CommandHandler("source", src, filters=Filters.private)
+REDDIT_MEMES_HANDLER = DisableAbleCommandHandler(
+    "rmeme", rmemes
+)
+SRC_HANDLER = CommandHandler(
+    "source", src, filters=Filters.private
+)
+SHELL_HANDLER = CommandHandler(
+    "shell", shell, filters=Filters.user(OWNER_ID), run_async=True
+)
+PYEVAL_HANDLER = CommandHandler(
+    "exec", pyeval, filters=Filters.user(OWNER_ID), run_async=True
 
 dispatcher.add_handler(WALLPAPER_HANDLER)
 dispatcher.add_handler(UD_HANDLER)
@@ -545,3 +638,5 @@ dispatcher.add_handler(GETLINK_HANDLER)
 dispatcher.add_handler(STAFFLIST_HANDLER)
 dispatcher.add_handler(REDDIT_MEMES_HANDLER)
 dispatcher.add_handler(SRC_HANDLER)
+dispatcher.add_handler(SHELL_HANDLER)
+dispatcher.add_handler(PYEVAL_HANDLER)
