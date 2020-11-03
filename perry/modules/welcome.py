@@ -76,7 +76,6 @@ def send(update, message, keyboard, backup_message):
             parse_mode=ParseMode.HTML,
             reply_markup=keyboard,
             reply_to_message_id=reply,
-            disable_web_page_preview=True,
         )
     except IndexError:
         msg = update.effective_message.reply_text(

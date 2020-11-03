@@ -196,7 +196,7 @@ def info(update, context):
     except IndexError:
         context.bot.sendChatAction(chat.id, "typing")
         msg.reply_text(
-            text, parse_mode=ParseMode.HTML, disable_web_page_preview=True
+            text, parse_mode=ParseMode.HTML,
         )
     finally:
         del_msg.delete()
