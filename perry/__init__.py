@@ -77,7 +77,7 @@ if ENV:
         )
     except ValueError:
         raise Exception(
-            "Your whitelisted users list does not contain valid integers."
+            "Your blacklisted users list does not contain valid integers."
         )
 
     WEBHOOK = bool(os.environ.get("WEBHOOK", False))
@@ -144,7 +144,7 @@ else:
         BLACKLIST_CHATS = set(int(x) for x in Config.BLACKLIST_CHATS or [])
     except ValueError:
         raise Exception(
-            "Your whitelisted users list does not contain valid integers."
+            "Your blacklisted users list does not contain valid integers."
         )
 
     WEBHOOK = Config.WEBHOOK
