@@ -1,4 +1,7 @@
-import importlib, traceback, html, json
+import importlib
+import traceback
+import html
+import json
 import re
 from typing import Optional, List
 
@@ -231,6 +234,9 @@ def help_button(update, context):
     prev_match = re.match(r"help_prev\((.+?)\)", query.data)
     next_match = re.match(r"help_next\((.+?)\)", query.data)
     back_match = re.match(r"help_back", query.data)
+
+    print(query.message.chat.id)
+
     try:
         if mod_match:
             module = mod_match.group(1)
@@ -240,24 +246,19 @@ def help_button(update, context):
                 )
                 + HELPABLE[module].__help__
             )
-            query.message.reply_text(
+            query.message.edit_text(
                 text=text,
                 parse_mode=ParseMode.MARKDOWN,
                 reply_markup=InlineKeyboardMarkup(
-                    [
-                        [
-                            InlineKeyboardButton(
-                                text="⬅️ Back", callback_data="help_back"
-                            )
-                        ]
-                    ]
+                    [[InlineKeyboardButton(
+                        text="⬅️ Back", callback_data="help_back")]]
                 ),
             )
 
         elif prev_match:
             curr_page = int(prev_match.group(1))
-            query.message.reply_text(
-                HELP_STRINGS,
+            query.message.edit_text(
+                text=HELP_STRINGS,
                 parse_mode=ParseMode.MARKDOWN,
                 reply_markup=InlineKeyboardMarkup(
                     paginate_modules(curr_page - 1, HELPABLE, "help")
@@ -266,8 +267,8 @@ def help_button(update, context):
 
         elif next_match:
             next_page = int(next_match.group(1))
-            query.message.reply_text(
-                HELP_STRINGS,
+            query.message.edit_text(
+                text=HELP_STRINGS,
                 parse_mode=ParseMode.MARKDOWN,
                 reply_markup=InlineKeyboardMarkup(
                     paginate_modules(next_page + 1, HELPABLE, "help")
@@ -275,7 +276,7 @@ def help_button(update, context):
             )
 
         elif back_match:
-            query.message.reply_text(
+            query.message.edit_text(
                 text=HELP_STRINGS,
                 parse_mode=ParseMode.MARKDOWN,
                 reply_markup=InlineKeyboardMarkup(
@@ -284,7 +285,6 @@ def help_button(update, context):
             )
 
         # ensure no spinny white circle
-        query.message.delete()
         context.bot.answer_callback_query(query.id)
     except Exception as excp:
         if excp.message == "Message is not modified":
@@ -309,16 +309,9 @@ def get_help(update, context):
         update.effective_message.reply_text(
             "Contact me in PM to get the list of possible commands.",
             reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton(
-                            text="Help",
-                            url="t.me/{}?start=help".format(
-                                context.bot.username
-                            ),
-                        )
-                    ]
-                ]
+                [[InlineKeyboardButton(
+                    text="Help", url="t.me/{}?start=help".format(context.bot.username),
+                )]]
             ),
         )
         return
