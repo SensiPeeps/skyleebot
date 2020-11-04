@@ -2270,7 +2270,6 @@ def rename_fed(update, context):
         msg.reply_text("Only federation owner can do this!")
 
 
-@run_async
 @typing_action
 def get_myfedsubs(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
@@ -2500,7 +2499,7 @@ RENAME_FED = CommandHandler("renamefed", rename_fed)
 
 
 DELETEBTN_FED_HANDLER = CallbackQueryHandler(
-    del_fed_button, pattern=r"rmfed_", run_async=True
+    del_fed_button, pattern=r"rmfed_"
 )
 
 dispatcher.add_handler(NEW_FED_HANDLER)
