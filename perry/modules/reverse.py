@@ -127,7 +127,6 @@ def reverse(update, context):
             xx.edit_text(
                 f"[{guess}]({fetchUrl})\nLooking for images...",
                 parse_mode="Markdown",
-                disable_web_page_preview=True,
             )
         else:
             xx.edit_text("Couldn't find anything.")
@@ -139,7 +138,6 @@ def reverse(update, context):
                 f"[{guess}]({fetchUrl})\n[Visually similar images]({imgspage})"
                 "\nCouldn't fetch any images.",
                 parse_mode="Markdown",
-                disable_web_page_preview=True,
             )
             return
 
@@ -154,7 +152,6 @@ def reverse(update, context):
         xx.edit_text(
             f"[{guess}]({fetchUrl})\n[Visually similar images]({imgspage})",
             parse_mode="Markdown",
-            disable_web_page_preview=True,
         )
     except TelegramError as e:
         print(e)

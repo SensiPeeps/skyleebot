@@ -16,7 +16,6 @@ def weather(update, context):
         del_msg = update.effective_message.reply_text(
             "{}".format(reply),
             parse_mode=ParseMode.MARKDOWN,
-            disable_web_page_preview=True,
         )
         time.sleep(5)
         try:
@@ -39,7 +38,6 @@ def weather(update, context):
         del_msg = update.effective_message.reply_text(
             "{}".format(reply),
             parse_mode=ParseMode.MARKDOWN,
-            disable_web_page_preview=True,
         )
         time.sleep(5)
         try:
@@ -106,7 +104,6 @@ def weather(update, context):
     del_msg = update.effective_message.reply_text(
         "{}".format(reply),
         parse_mode=ParseMode.MARKDOWN,
-        disable_web_page_preview=True,
     )
     time.sleep(30)
     try:

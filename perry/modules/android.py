@@ -33,7 +33,6 @@ def magisk(update, context):
     del_msg = update.message.reply_text(
         "*Latest Magisk Releases:*\n{}".format(releases),
         parse_mode=ParseMode.MARKDOWN,
-        disable_web_page_preview=True,
     )
     time.sleep(300)
     try:
@@ -56,7 +55,6 @@ def device(update, context):
         del_msg = update.effective_message.reply_text(
             "{}".format(reply),
             parse_mode=ParseMode.MARKDOWN,
-            disable_web_page_preview=True,
         )
         time.sleep(5)
         try:
@@ -86,7 +84,6 @@ def device(update, context):
         del_msg = update.effective_message.reply_text(
             "{}".format(reply),
             parse_mode=ParseMode.MARKDOWN,
-            disable_web_page_preview=True,
         )
         time.sleep(5)
         try:
@@ -100,7 +97,6 @@ def device(update, context):
     update.message.reply_text(
         "{}".format(reply),
         parse_mode=ParseMode.HTML,
-        disable_web_page_preview=True,
     )
 
 
@@ -114,7 +110,6 @@ def twrp(update, context):
         del_msg = update.effective_message.reply_text(
             "{}".format(reply),
             parse_mode=ParseMode.MARKDOWN,
-            disable_web_page_preview=True,
         )
         time.sleep(5)
         try:
@@ -133,7 +128,6 @@ def twrp(update, context):
         del_msg = update.effective_message.reply_text(
             "{}".format(reply),
             parse_mode=ParseMode.MARKDOWN,
-            disable_web_page_preview=True,
         )
         time.sleep(5)
         try:
@@ -171,7 +165,6 @@ def twrp(update, context):
         update.message.reply_text(
             "{}".format(reply),
             parse_mode=ParseMode.MARKDOWN,
-            disable_web_page_preview=True,
         )
 
 

@@ -191,7 +191,6 @@ def info(update, context):
             photo=profile,
             caption=(text),
             parse_mode=ParseMode.HTML,
-            disable_web_page_preview=True,
         )
     except IndexError:
         context.bot.sendChatAction(chat.id, "typing")
@@ -348,7 +347,6 @@ def src(update, context):
     update.effective_message.reply_text(
         "Hey there! You can find what makes me click [here](www.github.com/marchingon12/Perry).",
         parse_mode=ParseMode.MARKDOWN,
-        disable_web_page_preview=True,
     )
 
 

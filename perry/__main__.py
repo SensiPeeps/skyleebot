@@ -186,7 +186,6 @@ def start(update, context):
                 text=PM_START_TEXT,
                 reply_markup=InlineKeyboardMarkup(buttons),
                 parse_mode=ParseMode.HTML,
-                disable_web_page_preview=True,
             )
     else:
         update.effective_message.reply_text(
