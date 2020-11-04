@@ -67,7 +67,7 @@ def device(update, context):
                 err.message == "Message can't be deleted"
             ):
                 return
-    device = " ".join(args)
+    _device = " ".join(args)
     db = get(DEVICES_DATA).json()
     newdevice = device.strip("lte") if device.startswith("beyond") else device
     try:
@@ -126,7 +126,7 @@ def twrp(update, context):
             ):
                 return
 
-    device = " ".join(args)
+    _device = " ".join(args)
     url = get(f"https://eu.dl.twrp.me/{device}/")
     if url.status_code == 404:
         reply = f"Couldn't find twrp downloads for {device}!\n"
