@@ -51,12 +51,12 @@ async def purge(event):
             event.chat_id, f"Purged {count} messages."
         )
 
-        await asyncio.sleep(4)
+        await asyncio.sleep(3)
         await del_res.delete()
 
     except MessageDeleteForbiddenError:
         text = "Failed to delete messages.\n"
-        text += "Messages maybe too old or I'm not admin! or dont have delete rights!"
+        text += "Selected messages may be too old or you haven't given me enough admin rights!"
         del_res = await event.respond(text, parse_mode="md")
         await asyncio.sleep(5)
         await del_res.delete()
@@ -81,11 +81,11 @@ async def delete_msg(event):
 
 
 __help__ = """
-Deleting messages made easy with this command. Bot purges \
-messages all together or individually.
+Deleting a selected amount of messages are easy with this command. \
+Bot purges messages all together or individually.
 
 *Admin only:*
- × /del: Deletes the message you replied to
+ × /del: Deletes the message you replied to.
  × /purge: Deletes all messages between this and the replied to message.
 """
 
