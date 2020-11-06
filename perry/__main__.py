@@ -40,20 +40,20 @@ from perry.modules.helper_funcs.alternate import typing_action
 
 
 PM_START_TEXT = f"""
-Hey there! My name is <b>{dispatcher.bot.first_name}</b>. If you have any questions on how to use me, click the 'Help & Commands' button.
+Hey there! My name is <b>{dispatcher.bot.first_name}</b>.
 
 I'm here to make your group management fun and easy!
-I have lots of handy features, such as flood control, a warning system, a note keeping system, and even replies on predetermined filters.
+I have lots of handy features, check how to use commands 
+by clicking on "Help and Commands".
 
-Any issues or need help related to me? Contact @YumiUzo_bot for reports!
-
-Wanna add me to your group? Just click the button below!
+Any issues or need help related to me? 
+Report to @YumiUzo_bot!
 """
 
 buttons = [
     [
         InlineKeyboardButton(
-            text="Add to Group 👥", url="t.me/platapusbot?startgroup=true"
+            text="Add to Group 👥", url="t.me/platapustestbot?startgroup=true"
         ),
         InlineKeyboardButton(text="Updates 📢", url="https://t.me/FinfBotNews"),
     ]
@@ -65,14 +65,12 @@ buttons += [
 
 
 HELP_STRINGS = f"""
-Hello there! My name is *{dispatcher.bot.first_name}*.
-I'm a modular group management bot with a few fun extras! Have a look at the following for an idea of some of \
-the things I can help you with.
+Hey there, it seems like you need some help! 
 
-*Main* commands available:
- × /start: Starts me, can be used to check I'm alive or not.
- × /help: PM's you this message.
- × /help <module name>: PM's you info about that module.
+*Global* commands available:
+ × /start: Starts me, can be used to check if I'm alive (or not).
+ × /help: Sends you this exact message in PM.
+ × /help <module name>: PM's you info about that specific module.
  × /settings:
    - in PM: will send you your settings for all supported modules.
    - in a group: will redirect you to pm, with all that chat's settings.
@@ -327,13 +325,8 @@ def get_help(update, context):
             chat.id,
             text,
             InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton(
-                            text="Back", callback_data="help_back"
-                        )
-                    ]
-                ]
+                [[InlineKeyboardButton(
+                    text="Back", callback_data="help_back")]]
             ),
         )
 
@@ -407,14 +400,8 @@ def settings_button(update, context):
                 text=text,
                 parse_mode=ParseMode.MARKDOWN,
                 reply_markup=InlineKeyboardMarkup(
-                    [
-                        [
-                            InlineKeyboardButton(
-                                text="Back",
-                                callback_data="stngs_back({})".format(chat_id),
-                            )
-                        ]
-                    ]
+                    [[InlineKeyboardButton(
+                        text="Back", callback_data="stngs_back({})".format(chat_id),)]]
                 ),
             )
 
@@ -489,16 +476,9 @@ def get_settings(update, context):
             msg.reply_text(
                 text,
                 reply_markup=InlineKeyboardMarkup(
-                    [
-                        [
-                            InlineKeyboardButton(
-                                text="Settings",
-                                url="t.me/{}?start=stngs_{}".format(
-                                    context.bot.username, chat.id
-                                ),
-                            )
-                        ]
-                    ]
+                    [[InlineKeyboardButton(
+                        text="Settings",
+                        url="t.me/{}?start=stngs_{}".format(context.bot.username, chat.id),)]]
                 ),
             )
         else:
@@ -564,6 +544,17 @@ def is_chat_allowed(update, context):
         pass
 
 
+BANNER = r"""
+ ____                        _____         _   _             
+|  _ \ ___ _ __ _ __ _   _  |_   _|__  ___| |_(_)_ __   __ _ 
+| |_) / _ \ '__| '__| | | |   | |/ _ \/ __| __| | '_ \ / _` |
+|  __/  __/ |  | |  | |_| |   | |  __/\__ \ |_| | | | | (_| |
+|_|   \___|_|  |_|   \__, |   |_|\___||___/\__|_|_| |_|\__, |
+                     |___/                             |___/ 
+is now running.
+"""
+
+
 def main():
     # test_handler = CommandHandler("test", test)
     start_handler = CommandHandler("start", start, pass_args=True)
@@ -594,6 +585,7 @@ def main():
 
     dispatcher.add_error_handler(error_handler)
 
+    LOGGER.info("%s", BANNER)
     if WEBHOOK:
         LOGGER.info("Using webhooks.")
         updater.start_webhook(listen="0.0.0.0", port=PORT, url_path=TOKEN)
