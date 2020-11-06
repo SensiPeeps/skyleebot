@@ -97,14 +97,12 @@ def info(update, context):
     elif not msg.reply_to_message and not args:
         user = msg.from_user
 
-    elif not msg.reply_to_message and (
-        not args
-        or (
-            len(args) >= 1
-            and not args[0].startswith("@")
-            and not args[0].isdigit()
-            and not msg.parse_entities([MessageEntity.TEXT_MENTION])
-        )
+    elif (
+        not msg.reply_to_message
+        and len(args) >= 1
+        and not args[0].startswith("@")
+        and not args[0].isdigit()
+        and not msg.parse_entities([MessageEntity.TEXT_MENTION])
     ):
         msg.reply_text("I can't extract a user from this.")
         return
@@ -542,9 +540,11 @@ def shell(update, context):
             parse_mode=ParseMode.HTML
         )
     except Exception as excp:
-        if str(excp.message) == "Message must be non-empty":
-            return msg.edit_text("None")
-        rep.edit_text(str(excp))
+        if hasattr(excp, "message"):
+            if str(excp.message) == "Message must be non-empty":
+                return msg.edit_text("None")
+            rep.edit_text(str(excp))
+        
 
 
 def staff_ids(update, context):
