@@ -6,6 +6,8 @@ from telethon.tl.types import ChannelParticipantsAdmins
 from telethon.errors.rpcerrorlist import MessageDeleteForbiddenError
 
 # Check if user has admin rights
+
+
 async def is_administrator(user_id: int, message):
     admin = False
     async for user in client.iter_participants(
@@ -51,7 +53,7 @@ async def purge(event):
             event.chat_id, f"Purged {count} messages."
         )
 
-        await asyncio.sleep(3)
+        await asyncio.sleep(2)
         await del_res.delete()
 
     except MessageDeleteForbiddenError:
@@ -60,6 +62,36 @@ async def purge(event):
         del_res = await event.respond(text, parse_mode="md")
         await asyncio.sleep(5)
         await del_res.delete()
+
+
+@client.on(events.NewMessage(pattern="^/purgeme"))
+async def purgeme(event):
+    message = event.chat_id
+    count = int(message[9:])
+    i = 1
+
+    try:
+        async for message in event.client.iter_messages(
+                event.chat_id, from_user='me'):
+            if i > count + 1:
+                break
+            i += 1
+            await message.delete()
+
+            purged_msgs = await event.client.send_message(
+                event.chat_id, f"Purged {count} messages.",
+            )
+
+            await asyncio.sleep(2)
+            i = 1
+            await purged_msgs.delete()
+
+    except MessageDeleteForbiddenError:
+        text = "Failed to delete messages.\n"
+        text += "Selected messages may be too old or you haven't given me enough admin rights!"
+        purged_msgs = await event.respond(text, parse_mode="md")
+        await asyncio.sleep(5)
+        await purged_msgs.delete()
 
 
 @client.on(events.NewMessage(pattern="^/del$"))
