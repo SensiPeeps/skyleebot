@@ -1,5 +1,4 @@
 import time
-import json
 from bs4 import BeautifulSoup
 from requests import get
 from telegram import ParseMode
@@ -34,6 +33,7 @@ def magisk(update, context):
     del_msg = update.message.reply_text(
         "*Latest Magisk Releases:*\n{}".format(releases),
         parse_mode=ParseMode.MARKDOWN,
+        disable_web_page_preview=True,
     )
     time.sleep(300)
     try:
@@ -129,6 +129,7 @@ def twrp(update, context):
         del_msg = update.effective_message.reply_text(
             "{}".format(reply),
             parse_mode=ParseMode.MARKDOWN,
+            disable_web_page_preview=True,
         )
         time.sleep(5)
         try:
@@ -166,6 +167,7 @@ def twrp(update, context):
         update.message.reply_text(
             "{}".format(reply),
             parse_mode=ParseMode.MARKDOWN,
+            disable_web_page_preview=True,
         )
 
 
