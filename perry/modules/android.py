@@ -1,4 +1,5 @@
 import time
+import json
 from bs4 import BeautifulSoup
 from requests import get
 from telegram import ParseMode
@@ -19,7 +20,7 @@ def magisk(update, context):
     for type, branch in {
         "Stable": ["master/stable", "master"],
         "Beta": ["master/beta", "master"],
-        "Canary": ["canary/debug", "canary"],
+        "Canary": ["canary/canary", "canary"],
     }.items():
         data = get(url + branch[0] + ".json").json()
         releases += (
