@@ -45,62 +45,6 @@ def magisk(update, context):
         ):
             return
 
-
-@typing_action
-def device(update, context):
-    args = context.args
-    if len(args) == 0:
-        reply = (
-            "No codename provided, write a codename for fetching informations."
-        )
-        del_msg = update.effective_message.reply_text(
-            "{}".format(reply),
-            parse_mode=ParseMode.MARKDOWN,
-        )
-        time.sleep(5)
-        try:
-            del_msg.delete()
-            update.effective_message.delete()
-        except BadRequest as err:
-            if (err.message == "Message to delete not found") or (
-                err.message == "Message can't be deleted"
-            ):
-                return
-    _device = " ".join(args)
-    db = get(DEVICES_DATA).json()
-    newdevice = device.strip("lte") if device.startswith("beyond") else device
-    try:
-        reply = f"Search results for {device}:\n\n"
-        brand = db[newdevice][0]["brand"]
-        name = db[newdevice][0]["name"]
-        model = db[newdevice][0]["model"]
-        codename = newdevice
-        reply += (
-            f"<b>{brand} {name}</b>\n"
-            f"Model: <code>{model}</code>\n"
-            f"Codename: <code>{codename}</code>\n\n"
-        )
-    except KeyError:
-        reply = f"Couldn't find info about {device}!\n"
-        del_msg = update.effective_message.reply_text(
-            "{}".format(reply),
-            parse_mode=ParseMode.MARKDOWN,
-        )
-        time.sleep(5)
-        try:
-            del_msg.delete()
-            update.effective_message.delete()
-        except BadRequest as err:
-            if (err.message == "Message to delete not found") or (
-                err.message == "Message can't be deleted"
-            ):
-                return
-    update.message.reply_text(
-        "{}".format(reply),
-        parse_mode=ParseMode.HTML,
-    )
-
-
 @typing_action
 def twrp(update, context):
     args = context.args
@@ -123,9 +67,9 @@ def twrp(update, context):
                 return
 
     _device = " ".join(args)
-    url = get(f"https://eu.dl.twrp.me/{device}/")
+    url = get(f"https://eu.dl.twrp.me/{_device}/")
     if url.status_code == 404:
-        reply = f"Couldn't find twrp downloads for {device}!\n"
+        reply = f"Couldn't find twrp downloads for {_device}!\n"
         del_msg = update.effective_message.reply_text(
             "{}".format(reply),
             parse_mode=ParseMode.MARKDOWN,
@@ -141,10 +85,10 @@ def twrp(update, context):
             ):
                 return
     else:
-        reply = f"*Latest Official TWRP for {device}*\n"
+        reply = f"*Latest Official TWRP for {_device}*\n"
         db = get(DEVICES_DATA).json()
         newdevice = (
-            device.strip("lte") if device.startswith("beyond") else device
+            _device.strip("lte") if _device.startswith("beyond") else _device
         )
         try:
             brand = db[newdevice][0]["brand"]
@@ -172,7 +116,7 @@ def twrp(update, context):
 
 
 __help__ = """
-Get Latest magisk relese, Twrp for your device or info about some device using its codename, Directly from Bot!
+Get the latest Magsik releases, TWRP for your device or info about some device using its codename!
 
 *Android related commands:*
 
